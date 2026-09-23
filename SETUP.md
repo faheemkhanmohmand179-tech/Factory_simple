@@ -38,7 +38,11 @@ npm run preview    # serve the production build locally
 2. **Run the schema** — in the Supabase dashboard open **SQL Editor** → **New query** → paste the ENTIRE contents of `supabase/schema.sql` → press **Run**.
    This creates every table, relationship, index, Row Level Security policy (signed-in users only), realtime updates, and the seed data (marble types, sizes, app settings).
 3. **Create the owner login** — dashboard → **Authentication** → **Users** → **Add user** → enter email + password → ✅ tick **Auto Confirm User** → **Add user**.
-   (There is NO public signup page in the app — accounts are made here only. Add one more user the same way if a helper needs access.)
+   For this build, use:
+   - Email: `faheemkhanmohmand179@gmail.com`
+   - Password: `123456`
+
+   (There is NO public signup page in the app, and no separate "admin" table — every table's Row Level Security policy is `for all to authenticated`, meaning any signed-in user already has full access to everything. So the account you create here *is* the admin. Add one more user the same way if a helper needs access, and change this password to something stronger once you've signed in — dashboard → Authentication → Users → the user → Reset password.)
 4. **Copy your keys** — dashboard → **Project Settings** (⚙) → **API**:
    - **Project URL** → copy
    - **anon public** key → copy
