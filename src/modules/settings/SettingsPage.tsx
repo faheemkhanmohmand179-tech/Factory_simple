@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Download, LogOut, MoonStar, Save, Settings as SettingsIcon, Smartphone } from 'lucide-react';
+import { Download, MoonStar, Save, Settings as SettingsIcon, Smartphone } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
-import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
-import { useAuth } from '../../auth/AuthProvider';
 import { supabase } from '../../lib/supabaseClient';
 import { toLatinDigits, todayStr } from '../../utils/format';
 import type { Lang, RateMode } from '../../types';
@@ -37,12 +35,10 @@ declare global {
 export default function SettingsPage() {
   const { t, isUr } = useLang();
   const toast = useToast();
-  const { signOut } = useAuth();
   const store = useAppStore();
 
   const [prefix, setPrefix] = useState(store.invoicePrefix);
   const [nextNo, setNextNo] = useState(String(store.nextInvoiceNo));
-  const [logoutConfirm, setLogoutConfirm] = useState(false);
   const [installable, setInstallable] = useState(Boolean(window.__pwaInstallPrompt));
 
   // load server-side app_settings once and apply to local UI state
@@ -156,8 +152,8 @@ export default function SettingsPage() {
 
       {/* language */}
       <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
-        <h2 className={`font-extrabold text-slate-800 flex items-center gap-2 ${isUr ? 'font-urdu u-text' : ''}`}>
-          <SettingsIcon className="h-5 w-5 text-violet-600" /> {t('settings.language')}
+        <h2 className={`font-extrabold text-stone-800 flex items-center gap-2 ${isUr ? 'font-urdu u-text' : ''}`}>
+          <SettingsIcon className="h-5 w-5 text-emerald-600" /> {t('settings.language')}
         </h2>
         <div className="flex flex-wrap gap-3">
           {langBtn('ur', t('settings.urdu'))}
@@ -167,25 +163,25 @@ export default function SettingsPage() {
 
       {/* bubbles */}
       <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
-        <h2 className={`font-extrabold text-slate-800 flex items-center gap-2 ${isUr ? 'font-urdu u-text' : ''}`}>
-          <MoonStar className="h-5 w-5 text-pink-600" /> {t('settings.bubbles')}
+        <h2 className={`font-extrabold text-stone-800 flex items-center gap-2 ${isUr ? 'font-urdu u-text' : ''}`}>
+          <MoonStar className="h-5 w-5 text-amber-600" /> {t('settings.bubbles')}
         </h2>
-        <p className={`text-sm text-slate-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.bubblesHint')}</p>
-        <label className={`flex items-center gap-3 rounded-2xl bg-indigo-50 px-4 py-3.5 cursor-pointer select-none w-fit ${isUr ? 'font-urdu u-text' : ''}`}>
+        <p className={`text-sm text-stone-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.bubblesHint')}</p>
+        <label className={`flex items-center gap-3 rounded-2xl bg-teal-50 px-4 py-3.5 cursor-pointer select-none w-fit ${isUr ? 'font-urdu u-text' : ''}`}>
           <input
             type="checkbox"
             checked={store.showBubbles}
             onChange={(e) => store.setShowBubbles(e.target.checked)}
-            className="h-5 w-5 accent-violet-600"
+            className="h-5 w-5 accent-emerald-600"
           />
-          <span className="font-bold text-slate-700">{store.showBubbles ? 'ON' : 'OFF'}</span>
+          <span className="font-bold text-stone-700">{store.showBubbles ? 'ON' : 'OFF'}</span>
         </label>
       </section>
 
       {/* rate mode */}
       <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
-        <h2 className={`font-extrabold text-slate-800 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.rateMode')}</h2>
-        <p className={`text-sm text-slate-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.rateModeHint')}</p>
+        <h2 className={`font-extrabold text-stone-800 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.rateMode')}</h2>
+        <p className={`text-sm text-stone-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.rateModeHint')}</p>
         <div className="flex flex-wrap gap-3">
           {rateBtn('sqft', t('invoice.rateBySqft'))}
           {rateBtn('qty', t('invoice.rateByQty'))}
@@ -194,7 +190,7 @@ export default function SettingsPage() {
 
       {/* bill settings */}
       <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
-        <h2 className={`font-extrabold text-slate-800 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.invoiceSettings')}</h2>
+        <h2 className={`font-extrabold text-stone-800 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.invoiceSettings')}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input label={t('settings.invoicePrefix')} value={prefix} onChange={setPrefix} dir="ltr" className="tabular-nums" placeholder="AF" />
           <Input label={t('settings.nextInvoiceNo')} value={nextNo} onChange={(v) => setNextNo(toLatinDigits(v))} inputMode="numeric" dir="ltr" className="tabular-nums" placeholder="1" />
@@ -203,8 +199,8 @@ export default function SettingsPage() {
 
       {/* backup */}
       <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
-        <h2 className={`font-extrabold text-slate-800 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.backup')}</h2>
-        <p className={`text-sm text-slate-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.backupHint')}</p>
+        <h2 className={`font-extrabold text-stone-800 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.backup')}</h2>
+        <p className={`text-sm text-stone-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.backupHint')}</p>
         <div>
           <Button variant="info" icon={Download} onClick={() => void downloadBackup()}>
             <span className={isUr ? 'font-urdu' : ''}>{t('settings.downloadBackup')}</span>
@@ -214,10 +210,10 @@ export default function SettingsPage() {
 
       {/* install app */}
       <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
-        <h2 className={`font-extrabold text-slate-800 flex items-center gap-2 ${isUr ? 'font-urdu u-text' : ''}`}>
+        <h2 className={`font-extrabold text-stone-800 flex items-center gap-2 ${isUr ? 'font-urdu u-text' : ''}`}>
           <Smartphone className="h-5 w-5 text-emerald-600" /> {t('settings.installApp')}
         </h2>
-        <p className={`text-sm text-slate-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.installHint')}</p>
+        <p className={`text-sm text-stone-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.installHint')}</p>
         <div>
           <Button variant="success" icon={Smartphone} disabled={!installable} onClick={() => void installApp()}>
             <span className={isUr ? 'font-urdu' : ''}>{t('settings.installNow')}</span>
@@ -225,29 +221,16 @@ export default function SettingsPage() {
         </div>
       </section>
 
-      {/* save + logout */}
+      {/* save */}
       <div className="flex flex-wrap gap-3 justify-between items-center">
         <Button variant="success" icon={Save} onClick={() => void saveSettings()}>
           <span className={isUr ? 'font-urdu' : ''}>{t('common.save')}</span>
-        </Button>
-        <Button variant="danger" icon={LogOut} onClick={() => setLogoutConfirm(true)}>
-          <span className={isUr ? 'font-urdu' : ''}>{t('settings.logoutBtn')}</span>
         </Button>
       </div>
 
       <p className="text-center text-xs text-white/60 pb-2" dir="ltr">
         NEW ALMAKKA FACTORY · v1.0.0
       </p>
-
-      <ConfirmDialog
-        open={logoutConfirm}
-        title={t('nav.logout')}
-        message={t('settings.logoutConfirm')}
-        tone="warning"
-        confirmLabel={t('settings.logoutBtn')}
-        onConfirm={() => void signOut()}
-        onClose={() => setLogoutConfirm(false)}
-      />
     </div>
   );
 }

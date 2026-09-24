@@ -55,7 +55,7 @@ export default function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-2xl px-3 h-12 font-bold text-sm transition active:scale-[0.98] ${
                 isActive
-                  ? 'bg-white text-violet-700 shadow-lg'
+                  ? 'bg-white text-emerald-700 shadow-lg'
                   : 'text-white/90 hover:bg-white/20'
               } ${collapsed ? 'justify-center px-0' : ''}`
             }

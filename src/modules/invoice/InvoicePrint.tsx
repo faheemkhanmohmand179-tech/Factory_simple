@@ -104,7 +104,7 @@ export function BillPreview({ inv, items, lang }: { inv: BillData; items: BillIt
     .replace(/^[\s\S]*?<body>/, '')
     .replace(/<\/body>[\s\S]*$/, '');
   return (
-    <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white" dir={lang === 'ur' ? 'rtl' : 'ltr'}>
+    <div className="rounded-2xl overflow-hidden border border-stone-200 bg-white" dir={lang === 'ur' ? 'rtl' : 'ltr'}>
       <div className="bg-white overflow-x-auto scroll-slim" dangerouslySetInnerHTML={{ __html: `<style>${BASE_CSS} .page{background:#fff}</style>${body}` }} />
     </div>
   );

@@ -153,15 +153,15 @@ export default function MarbleSizesPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
           {filtered.map((s) => (
             <div key={s.id} className="glass rounded-3xl shadow-glass p-4 flex flex-col items-center gap-2 text-center">
-              <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 grid place-items-center text-white shadow-lg">
+              <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 grid place-items-center text-white shadow-lg">
                 <Ruler className="h-6 w-6" />
               </div>
-              <div className="font-extrabold text-slate-800" dir="ltr">{s.label}</div>
-              <div className="text-xs text-slate-400 tabular-nums" dir="ltr">
+              <div className="font-extrabold text-stone-800" dir="ltr">{s.label}</div>
+              <div className="text-xs text-stone-400 tabular-nums" dir="ltr">
                 {fmtNum(s.length_in)} × {fmtNum(s.width_in)} {s.unit === 'inch' ? (isUr ? 'انچ' : 'in') : 'ft'}
               </div>
               <div className="flex gap-1.5 mt-1">
-                <button type="button" onClick={() => openEdit(s)} className="h-10 w-10 grid place-items-center rounded-xl bg-sky-100 text-sky-600 active:scale-95">✎</button>
+                <button type="button" onClick={() => openEdit(s)} className="h-10 w-10 grid place-items-center rounded-xl bg-cyan-100 text-cyan-600 active:scale-95">✎</button>
                 <button type="button" onClick={() => setDel(s)} className="h-10 w-10 grid place-items-center rounded-xl bg-rose-100 text-rose-600 active:scale-95">×</button>
               </div>
             </div>

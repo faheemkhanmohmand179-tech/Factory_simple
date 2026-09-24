@@ -42,7 +42,7 @@ export default function ConfirmDialog({ open, title, message, confirmLabel, canc
         <div className={`h-12 w-12 shrink-0 rounded-2xl grid place-items-center ${tone === 'danger' ? 'bg-rose-100 text-rose-600' : 'bg-amber-100 text-amber-600'}`}>
           {icon ?? <TriangleAlert className="h-6 w-6" />}
         </div>
-        <div className="text-slate-700 font-semibold pt-1 text-base leading-relaxed">{message}</div>
+        <div className="text-stone-700 font-semibold pt-1 text-base leading-relaxed">{message}</div>
       </div>
     </Modal>
   );

@@ -86,12 +86,12 @@ export default function Modal({ open, onClose, title, children, dirty = false, o
       <div className="modal-shell">
         <div className={`modal-panel ${wide ? 'max-w-5xl' : 'max-w-3xl'} ${isUr ? 'font-urdu-safe' : ''}`} role="dialog" aria-modal="true">
           {/* title bar */}
-          <div className="sticky top-0 z-10 flex items-center justify-between gap-3 px-5 py-4 bg-white/95 backdrop-blur border-b border-slate-100 rounded-t-3xl">
-            <h3 className={`text-lg font-extrabold text-slate-900 truncate ${isUr ? 'font-urdu u-head' : ''}`}>{title}</h3>
+          <div className="sticky top-0 z-10 flex items-center justify-between gap-3 px-5 py-4 bg-white/95 backdrop-blur border-b border-stone-100 rounded-t-3xl">
+            <h3 className={`text-lg font-extrabold text-stone-900 truncate ${isUr ? 'font-urdu u-head' : ''}`}>{title}</h3>
             <button
               type="button"
               onClick={attemptClose}
-              className="h-11 w-11 shrink-0 grid place-items-center rounded-2xl bg-slate-100 hover:bg-rose-100 hover:text-rose-600 text-slate-500 transition active:scale-95"
+              className="h-11 w-11 shrink-0 grid place-items-center rounded-2xl bg-stone-100 hover:bg-rose-100 hover:text-rose-600 text-stone-500 transition active:scale-95"
               aria-label={t('common.close')}
             >
               <X className="h-5 w-5" />
@@ -102,7 +102,7 @@ export default function Modal({ open, onClose, title, children, dirty = false, o
           <div className="px-5 py-5">{children}</div>
 
           {/* footer / unsaved-confirm */}
-          <div className="sticky bottom-0 px-5 py-4 bg-white/95 backdrop-blur border-t border-slate-100 rounded-b-3xl">
+          <div className="sticky bottom-0 px-5 py-4 bg-white/95 backdrop-blur border-t border-stone-100 rounded-b-3xl">
             {confirming ? (
               <div className="space-y-3">
                 <div className={`rounded-2xl bg-amber-50 border border-amber-200 px-4 py-3 text-sm font-bold text-amber-800 ${isUr ? 'u-text' : ''}`}>

@@ -15,7 +15,7 @@ const STATUS_BTNS: { value: string; key: string; cls: string }[] = [
   { value: 'present', key: 'attendance.present', cls: 'bg-gradient-to-br from-emerald-500 to-teal-600 shadow-teal-500/40' },
   { value: 'absent', key: 'attendance.absent', cls: 'bg-gradient-to-br from-rose-500 to-red-600 shadow-rose-500/40' },
   { value: 'half', key: 'attendance.halfDay', cls: 'bg-gradient-to-br from-amber-500 to-orange-600 shadow-amber-500/40' },
-  { value: 'leave', key: 'attendance.leave', cls: 'bg-gradient-to-br from-sky-500 to-cyan-600 shadow-sky-500/40' }
+  { value: 'leave', key: 'attendance.leave', cls: 'bg-gradient-to-br from-cyan-500 to-cyan-600 shadow-cyan-500/40' }
 ];
 
 export default function AttendancePage() {
@@ -155,7 +155,7 @@ export default function AttendancePage() {
 
       {/* summary bar */}
       <div className="glass rounded-3xl shadow-glass px-4 py-3 mb-4 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <span className={`font-extrabold text-slate-600 ${isUr ? 'font-urdu u-text' : ''}`}>{t('attendance.summary')}:</span>
+        <span className={`font-extrabold text-stone-600 ${isUr ? 'font-urdu u-text' : ''}`}>{t('attendance.summary')}:</span>
         <span className="chip chip-paid">{t('attendance.present')}: <b className="tabular-nums" dir="ltr">{fmtNum(counts.present)}</b></span>
         <span className="chip chip-partial">{t('attendance.absent')}: <b className="tabular-nums" dir="ltr">{fmtNum(counts.absent)}</b></span>
         <span className="chip chip-warn">{t('attendance.halfDay')}: <b className="tabular-nums" dir="ltr">{fmtNum(counts.half)}</b></span>
@@ -168,7 +168,7 @@ export default function AttendancePage() {
 
       {activeLabour.length === 0 && !loading ? (
         <div className="glass rounded-3xl p-10 text-center">
-          <p className={`text-slate-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('attendance.noActiveLabour')}</p>
+          <p className={`text-stone-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('attendance.noActiveLabour')}</p>
           <Link to="/labour" className="btn btn-primary mt-4 inline-flex">{t('labour.add')}</Link>
         </div>
       ) : (
@@ -180,8 +180,8 @@ export default function AttendancePage() {
               <div key={l.id} className="glass rounded-3xl shadow-glass p-4">
                 <div className="flex items-center justify-between gap-3 mb-3">
                   <div className="min-w-0">
-                    <div className={`font-extrabold text-slate-800 truncate ${isUr ? 'font-urdu' : ''}`}>{l.name}</div>
-                    <div className="text-xs text-slate-400 tabular-nums" dir="ltr">{t('labour.dailyWage')}: {fmtNum(l.daily_wage)}</div>
+                    <div className={`font-extrabold text-stone-800 truncate ${isUr ? 'font-urdu' : ''}`}>{l.name}</div>
+                    <div className="text-xs text-stone-400 tabular-nums" dir="ltr">{t('labour.dailyWage')}: {fmtNum(l.daily_wage)}</div>
                   </div>
                   {rec && <span className={`chip ${rec.status === 'present' ? 'chip-paid' : rec.status === 'absent' ? 'chip-partial' : 'chip-info'}`}>{t(`attendance.${rec.status === 'half' ? 'halfDay' : rec.status}`)}</span>}
                 </div>
@@ -193,7 +193,7 @@ export default function AttendancePage() {
                       disabled={busyId === l.id}
                       onClick={() => void mark(l.id, l.name, b.value)}
                       className={`rounded-2xl px-2 min-h-12 font-extrabold text-xs sm:text-sm text-white transition active:scale-95 disabled:opacity-50 ${
-                        rec?.status === b.value ? `${b.cls} shadow-lg scale-[1.03] ring-2 ring-white` : 'bg-slate-400/70 hover:bg-slate-500/80'
+                        rec?.status === b.value ? `${b.cls} shadow-lg scale-[1.03] ring-2 ring-white` : 'bg-stone-400/70 hover:bg-stone-500/80'
                       }`}
                     >
                       <span className={isUr ? 'font-urdu' : ''}>{t(b.key)}</span>
@@ -202,7 +202,7 @@ export default function AttendancePage() {
                 </div>
                 {rec && (
                   <div className="mt-3 flex items-center gap-3">
-                    <span className={`text-xs font-bold text-slate-500 shrink-0 ${isUr ? 'font-urdu' : ''}`}>{t('attendance.overtimeHours')}:</span>
+                    <span className={`text-xs font-bold text-stone-500 shrink-0 ${isUr ? 'font-urdu' : ''}`}>{t('attendance.overtimeHours')}:</span>
                     <input
                       type="text"
                       inputMode="decimal"
@@ -212,7 +212,7 @@ export default function AttendancePage() {
                       className="input !h-10 !py-0 tabular-nums w-24 text-center"
                       placeholder="0"
                     />
-                    <span className={`text-xs text-slate-400 ${isUr ? 'font-urdu' : ''}`}>⏱</span>
+                    <span className={`text-xs text-stone-400 ${isUr ? 'font-urdu' : ''}`}>⏱</span>
                   </div>
                 )}
               </div>

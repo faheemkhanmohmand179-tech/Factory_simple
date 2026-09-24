@@ -25,7 +25,7 @@ export default function PageHeader({ title, count, search, addLabel, onAdd, chil
             {title}
           </h1>
           {count !== undefined && (
-            <span className="chip chip-static bg-white/90 text-violet-700 font-extrabold tabular-nums shrink-0">
+            <span className="chip chip-static bg-white/90 text-emerald-700 font-extrabold tabular-nums shrink-0">
               {new Intl.NumberFormat('en-US').format(count)} {t('common.records')}
             </span>
           )}
@@ -41,7 +41,7 @@ export default function PageHeader({ title, count, search, addLabel, onAdd, chil
       <div className="flex flex-wrap items-center gap-3">
         {search && (
           <div className="relative flex-1 min-w-[220px]">
-            <Search className="absolute top-1/2 -translate-y-1/2 start-3.5 h-5 w-5 text-slate-400 pointer-events-none" />
+            <Search className="absolute top-1/2 -translate-y-1/2 start-3.5 h-5 w-5 text-stone-400 pointer-events-none" />
             <input
               type="search"
               value={search.value}

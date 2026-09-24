@@ -72,12 +72,12 @@ export default function AppShell() {
 
         {/* custom install banner (dismissible) */}
         {installEvt && !bannerDismissed && (
-          <div className="mb-4 rounded-2xl bg-gradient-to-r from-violet-600 to-pink-600 text-white px-4 py-3.5 flex items-center gap-3 shadow-lg fade-in">
+          <div className="mb-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-amber-600 text-white px-4 py-3.5 flex items-center gap-3 shadow-lg fade-in">
             <Download className="h-5 w-5 shrink-0" />
             <span className={`text-sm font-bold flex-1 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.installBanner')}</span>
             <button
               type="button"
-              className="rounded-xl bg-white text-violet-700 font-extrabold text-xs px-3.5 h-9 active:scale-95 transition"
+              className="rounded-xl bg-white text-emerald-700 font-extrabold text-xs px-3.5 h-9 active:scale-95 transition"
               onClick={() => void installEvt.prompt()}
             >
               {t('settings.installNow')}

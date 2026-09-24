@@ -234,9 +234,9 @@ export default function LabourPage() {
           <Input label={t('labour.dailyWage')} value={wage} onChange={(v) => setWage(toLatinDigits(v))} inputMode="decimal" dir="ltr" className="tabular-nums" />
           <Input label={t('labour.joinDate')} type="date" dir="ltr" value={joinDate} onChange={setJoinDate} />
           <div className="sm:col-span-2">
-            <label className={`flex items-center gap-3 rounded-2xl bg-indigo-50 px-4 py-3.5 cursor-pointer select-none ${isUr ? 'font-urdu u-text' : ''}`}>
-              <input type="checkbox" checked={active} onChange={(e) => setActive(e.target.checked)} className="h-5 w-5 accent-violet-600" />
-              <span className="font-bold text-slate-700">{t('common.active')}</span>
+            <label className={`flex items-center gap-3 rounded-2xl bg-teal-50 px-4 py-3.5 cursor-pointer select-none ${isUr ? 'font-urdu u-text' : ''}`}>
+              <input type="checkbox" checked={active} onChange={(e) => setActive(e.target.checked)} className="h-5 w-5 accent-emerald-600" />
+              <span className="font-bold text-stone-700">{t('common.active')}</span>
             </label>
           </div>
           <div className="sm:col-span-2">

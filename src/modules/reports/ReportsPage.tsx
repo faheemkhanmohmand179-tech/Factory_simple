@@ -154,7 +154,7 @@ export default function ReportsPage() {
 
       {buckets.length === 0 ? (
         <div className="glass rounded-3xl p-10 text-center">
-          <p className={`text-slate-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('reports.noData')}</p>
+          <p className={`text-stone-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('reports.noData')}</p>
         </div>
       ) : (
         <div className="space-y-4">

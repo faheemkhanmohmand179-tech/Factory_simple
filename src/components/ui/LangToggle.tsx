@@ -11,7 +11,7 @@ export default function LangToggle({ compact = false }: { compact?: boolean }) {
         type="button"
         onClick={() => setLang('ur')}
         className={`rounded-xl px-3 h-9 text-sm font-extrabold transition font-urdu ${
-          lang === 'ur' ? 'bg-white text-violet-700 shadow' : 'text-white/90 hover:bg-white/20'
+          lang === 'ur' ? 'bg-white text-emerald-700 shadow' : 'text-white/90 hover:bg-white/20'
         }`}
       >
         اردو
@@ -21,7 +21,7 @@ export default function LangToggle({ compact = false }: { compact?: boolean }) {
         onClick={() => setLang('en')}
         dir="ltr"
         className={`rounded-xl px-3 h-9 text-sm font-extrabold transition ${
-          lang === 'en' ? 'bg-white text-violet-700 shadow' : 'text-white/90 hover:bg-white/20'
+          lang === 'en' ? 'bg-white text-emerald-700 shadow' : 'text-white/90 hover:bg-white/20'
         }`}
       >
         English

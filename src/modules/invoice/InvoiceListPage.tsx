@@ -216,7 +216,7 @@ export default function InvoiceListPage() {
               type="button"
               title={t('invoice.viewBill')}
               onClick={() => setView(i)}
-              className="h-11 w-11 grid place-items-center rounded-xl bg-violet-100 text-violet-600 hover:bg-violet-200 transition active:scale-95"
+              className="h-11 w-11 grid place-items-center rounded-xl bg-emerald-100 text-emerald-600 hover:bg-emerald-200 transition active:scale-95"
             >
               <Eye className="h-4.5 w-4.5" />
             </button>

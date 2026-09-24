@@ -281,8 +281,8 @@ export default function InvoiceFormPage() {
   if (loading) {
     return (
       <div className="glass rounded-3xl p-10 text-center">
-        <div className="h-8 w-8 rounded-full border-4 border-violet-200 border-t-violet-600 animate-spin mx-auto" />
-        <p className={`mt-3 text-slate-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('common.loading')}</p>
+        <div className="h-8 w-8 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin mx-auto" />
+        <p className={`mt-3 text-stone-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('common.loading')}</p>
       </div>
     );
   }
@@ -300,14 +300,14 @@ export default function InvoiceFormPage() {
           <button
             type="button"
             onClick={() => setRateMode('sqft')}
-            className={`rounded-xl px-4 h-10 text-sm font-extrabold transition ${rateMode === 'sqft' ? 'bg-white text-violet-700 shadow' : 'text-white'}`}
+            className={`rounded-xl px-4 h-10 text-sm font-extrabold transition ${rateMode === 'sqft' ? 'bg-white text-emerald-700 shadow' : 'text-white'}`}
           >
             <span className={isUr ? 'font-urdu' : ''}>{t('invoice.rateBySqft')}</span>
           </button>
           <button
             type="button"
             onClick={() => setRateMode('qty')}
-            className={`rounded-xl px-4 h-10 text-sm font-extrabold transition ${rateMode === 'qty' ? 'bg-white text-violet-700 shadow' : 'text-white'}`}
+            className={`rounded-xl px-4 h-10 text-sm font-extrabold transition ${rateMode === 'qty' ? 'bg-white text-emerald-700 shadow' : 'text-white'}`}
           >
             <span className={isUr ? 'font-urdu' : ''}>{t('invoice.rateByQty')}</span>
           </button>
@@ -376,7 +376,7 @@ export default function InvoiceFormPage() {
         <div className="overflow-x-auto scroll-slim">
           <table className={`w-full min-w-[760px] text-sm ${isUr ? 'urdu-table' : ''}`}>
             <thead>
-              <tr className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white">
+              <tr className="bg-gradient-to-r from-teal-600 to-emerald-600 text-white">
                 <th className="px-3 py-3.5 text-start w-20">{t('common.quantity')}</th>
                 <th className="px-3 py-3.5 text-start">{t('common.description')}</th>
                 <th className="px-3 py-3.5 text-start w-36">{t('stock.size')}</th>
@@ -388,7 +388,7 @@ export default function InvoiceFormPage() {
             </thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r._id} className="border-b border-slate-100 even:bg-indigo-50/40">
+                <tr key={r._id} className="border-b border-stone-100 even:bg-teal-50/40">
                   <td className="px-2 py-2">
                     <input
                       type="text"
@@ -469,7 +469,7 @@ export default function InvoiceFormPage() {
                       className="input !h-11 !py-0 tabular-nums text-end"
                     />
                   </td>
-                  <td className="px-3 py-2 text-end font-extrabold text-slate-800 tabular-nums">{fmtNum(rowAmount(r))}</td>
+                  <td className="px-3 py-2 text-end font-extrabold text-stone-800 tabular-nums">{fmtNum(rowAmount(r))}</td>
                   <td className="px-2 py-2">
                     <div className="flex items-center justify-center gap-1">
                       <button
@@ -541,7 +541,7 @@ export default function InvoiceFormPage() {
           </div>
 
           {/* bold gradient totals */}
-          <div className="rounded-3xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 text-white p-5 shadow-xl space-y-3">
+          <div className="rounded-3xl bg-gradient-to-br from-teal-600 via-emerald-600 to-amber-700 text-white p-5 shadow-xl space-y-3">
             <div className="flex justify-between items-center text-lg font-bold">
               <span className={isUr ? 'font-urdu u-text' : ''}>{t('invoice.grandTotal')}</span>
               <span className="tabular-nums text-2xl font-extrabold" dir="ltr">{fmtNum(total)}</span>
@@ -601,7 +601,7 @@ export default function InvoiceFormPage() {
       {/* stock picker modal */}
       <Modal open={stockPick !== null} onClose={() => setStockPick(null)} title={t('invoice.stockPickTitle')}>
         {stock.length === 0 ? (
-          <p className={`text-center py-8 text-slate-400 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('invoice.noStock')}</p>
+          <p className={`text-center py-8 text-stone-400 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('invoice.noStock')}</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {stock.map((s) => (
@@ -619,13 +619,13 @@ export default function InvoiceFormPage() {
                   setStockPick(null);
                   toast.success(t('common.savedToast'));
                 }}
-                className="rounded-2xl border-2 border-indigo-100 hover:border-violet-400 bg-white p-4 text-start transition active:scale-[0.98] shadow-sm"
+                className="rounded-2xl border-2 border-teal-100 hover:border-emerald-400 bg-white p-4 text-start transition active:scale-[0.98] shadow-sm"
               >
-                <div className="flex items-center gap-2 font-extrabold text-slate-800">
+                <div className="flex items-center gap-2 font-extrabold text-stone-800">
                   <span className="h-4 w-4 rounded-full" style={{ background: s.color ?? '#94a3b8' }} />
                   <span className={isUr ? 'font-urdu' : ''}>{s.marble_type_name}</span>
                 </div>
-                <div className="text-sm text-slate-500 mt-1.5 tabular-nums" dir="ltr">
+                <div className="text-sm text-stone-500 mt-1.5 tabular-nums" dir="ltr">
                   {s.size_label} · {fmtNum(s.quantity)} qty · {fmtNum(s.rate_per_sqft)}/ft
                 </div>
               </button>

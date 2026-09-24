@@ -255,24 +255,24 @@ export default function DashboardPage() {
         {/* latest invoices */}
         <div className="glass rounded-3xl shadow-glass p-4 sm:p-5">
           <div className={`flex items-center justify-between mb-3 ${isUr ? 'font-urdu u-text' : ''}`}>
-            <h3 className="font-extrabold text-slate-800">{t('dashboard.latestInvoices')}</h3>
-            <button type="button" className="text-sm font-bold text-violet-600 hover:underline" onClick={() => navigate('/invoices')}>
+            <h3 className="font-extrabold text-stone-800">{t('dashboard.latestInvoices')}</h3>
+            <button type="button" className="text-sm font-bold text-emerald-600 hover:underline" onClick={() => navigate('/invoices')}>
               {t('common.seeAll')}
             </button>
           </div>
           {latest.length === 0 ? (
-            <p className={`text-sm text-slate-400 py-4 ${isUr ? 'font-urdu u-text' : ''}`}>{t('dashboard.noInvoices')}</p>
+            <p className={`text-sm text-stone-400 py-4 ${isUr ? 'font-urdu u-text' : ''}`}>{t('dashboard.noInvoices')}</p>
           ) : (
             <ul className="space-y-2">
               {latest.map((inv) => (
-                <li key={inv.id} className="flex items-center gap-3 rounded-2xl bg-indigo-50/60 px-3 py-2.5">
-                  <FileText className="h-4.5 w-4.5 text-indigo-500 shrink-0" />
+                <li key={inv.id} className="flex items-center gap-3 rounded-2xl bg-teal-50/60 px-3 py-2.5">
+                  <FileText className="h-4.5 w-4.5 text-teal-500 shrink-0" />
                   <div className="min-w-0 flex-1">
-                    <div className={`font-bold text-sm text-slate-800 truncate ${isUr ? 'font-urdu' : ''}`}>{inv.customer_name || '—'}</div>
-                    <div className="text-[11px] text-slate-400 tabular-nums" dir="ltr">{inv.invoice_no} · {inv.invoice_date}</div>
+                    <div className={`font-bold text-sm text-stone-800 truncate ${isUr ? 'font-urdu' : ''}`}>{inv.customer_name || '—'}</div>
+                    <div className="text-[11px] text-stone-400 tabular-nums" dir="ltr">{inv.invoice_no} · {inv.invoice_date}</div>
                   </div>
                   <div className="text-end">
-                    <div className="text-sm font-extrabold text-slate-800 tabular-nums" dir="ltr">{fmtNum(inv.total)}</div>
+                    <div className="text-sm font-extrabold text-stone-800 tabular-nums" dir="ltr">{fmtNum(inv.total)}</div>
                     <span className={`chip ${num(inv.remaining) <= 0 ? 'chip-paid' : 'chip-partial'} !text-[10px] ${isUr ? 'font-urdu' : ''}`}>
                       {num(inv.remaining) <= 0 ? t('invoice.paid') : t('invoice.partial')}
                     </span>
@@ -286,27 +286,27 @@ export default function DashboardPage() {
         {/* top customers */}
         <div className="glass rounded-3xl shadow-glass p-4 sm:p-5">
           <div className={`flex items-center justify-between mb-3 ${isUr ? 'font-urdu u-text' : ''}`}>
-            <h3 className="font-extrabold text-slate-800">{t('dashboard.topCustomers')}</h3>
-            <button type="button" className="text-sm font-bold text-violet-600 hover:underline" onClick={() => navigate('/customers')}>
+            <h3 className="font-extrabold text-stone-800">{t('dashboard.topCustomers')}</h3>
+            <button type="button" className="text-sm font-bold text-emerald-600 hover:underline" onClick={() => navigate('/customers')}>
               {t('common.seeAll')}
             </button>
           </div>
           {topCustomers.length === 0 ? (
-            <p className={`text-sm text-slate-400 py-4 ${isUr ? 'font-urdu u-text' : ''}`}>{t('dashboard.noCustomers')}</p>
+            <p className={`text-sm text-stone-400 py-4 ${isUr ? 'font-urdu u-text' : ''}`}>{t('dashboard.noCustomers')}</p>
           ) : (
             <ul className="space-y-2">
               {topCustomers.map((c) => (
-                <li key={c.id} className="flex items-center gap-3 rounded-2xl bg-indigo-50/60 px-3 py-2.5">
+                <li key={c.id} className="flex items-center gap-3 rounded-2xl bg-teal-50/60 px-3 py-2.5">
                   <div className={`h-9 w-9 rounded-full grid place-items-center font-extrabold text-white text-sm shrink-0 ${c.bal >= 0 ? 'bg-emerald-500' : 'bg-rose-500'}`}>
                     {(isUr ? c.name?.[0] ?? '?' : c.name?.[0]?.toUpperCase() ?? '?')}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className={`font-bold text-sm text-slate-800 truncate ${isUr ? 'font-urdu' : ''}`}>{c.name}</div>
+                    <div className={`font-bold text-sm text-stone-800 truncate ${isUr ? 'font-urdu' : ''}`}>{c.name}</div>
                     <div className={`text-[11px] font-semibold ${c.bal >= 0 ? 'text-emerald-600' : 'text-rose-600'} ${isUr ? 'font-urdu' : ''}`}>
                       {c.bal >= 0 ? t('customers.lenaHai') : t('customers.denaHai')}
                     </div>
                   </div>
-                  <div className="text-sm font-extrabold text-slate-800 tabular-nums" dir="ltr">{fmtNum(Math.abs(c.bal))}</div>
+                  <div className="text-sm font-extrabold text-stone-800 tabular-nums" dir="ltr">{fmtNum(Math.abs(c.bal))}</div>
                 </li>
               ))}
             </ul>
@@ -316,19 +316,19 @@ export default function DashboardPage() {
         {/* absent today */}
         <div className="glass rounded-3xl shadow-glass p-4 sm:p-5">
           <div className={`flex items-center justify-between mb-3 ${isUr ? 'font-urdu u-text' : ''}`}>
-            <h3 className="font-extrabold text-slate-800">{t('dashboard.absentToday')}</h3>
-            <button type="button" className="text-sm font-bold text-violet-600 hover:underline" onClick={() => navigate('/attendance')}>
+            <h3 className="font-extrabold text-stone-800">{t('dashboard.absentToday')}</h3>
+            <button type="button" className="text-sm font-bold text-emerald-600 hover:underline" onClick={() => navigate('/attendance')}>
               {t('common.seeAll')}
             </button>
           </div>
           {absentToday.length === 0 ? (
-            <p className={`text-sm text-slate-400 py-4 ${isUr ? 'font-urdu u-text' : ''}`}>{t('dashboard.noAbsent')}</p>
+            <p className={`text-sm text-stone-400 py-4 ${isUr ? 'font-urdu u-text' : ''}`}>{t('dashboard.noAbsent')}</p>
           ) : (
             <ul className="space-y-2">
               {absentToday.map((l) => (
                 <li key={l.id} className="flex items-center gap-3 rounded-2xl bg-rose-50 px-3 py-2.5">
                   <div className="h-9 w-9 rounded-full bg-rose-500 grid place-items-center text-white font-extrabold text-sm shrink-0">!</div>
-                  <div className={`font-bold text-sm text-slate-800 truncate ${isUr ? 'font-urdu' : ''}`}>{l.name}</div>
+                  <div className={`font-bold text-sm text-stone-800 truncate ${isUr ? 'font-urdu' : ''}`}>{l.name}</div>
                 </li>
               ))}
             </ul>
@@ -338,7 +338,7 @@ export default function DashboardPage() {
 
       {/* full summary export */}
       <div className="glass rounded-3xl shadow-glass p-4 sm:p-5">
-        <h3 className={`font-extrabold text-slate-800 mb-3 ${isUr ? 'font-urdu u-text' : ''}`}>{t('reports.title')}</h3>
+        <h3 className={`font-extrabold text-stone-800 mb-3 ${isUr ? 'font-urdu u-text' : ''}`}>{t('reports.title')}</h3>
         <ExportImportBar
           title={isUr ? 'ڈیش بورڈ خلاصہ' : 'Dashboard Summary'}
           filenameBase="dashboard-summary"

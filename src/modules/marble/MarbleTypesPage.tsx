@@ -150,7 +150,7 @@ export default function MarbleTypesPage() {
         {loading && Array.from({ length: 6 }).map((_, i) => <div key={i} className="glass rounded-3xl h-44 animate-pulse" />)}
         {!loading && filtered.length === 0 && (
           <div className="glass rounded-3xl p-10 text-center sm:col-span-2 xl:col-span-3">
-            <p className={`text-slate-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('marbleTypes.noTypes')}</p>
+            <p className={`text-stone-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('marbleTypes.noTypes')}</p>
             <Button variant="primary" className="mt-4 mx-auto" onClick={openAdd}>{t('marbleTypes.add')}</Button>
           </div>
         )}
@@ -163,9 +163,9 @@ export default function MarbleTypesPage() {
                 title={m.color_name ?? ''}
               />
               <div className="min-w-0">
-                <div className="font-urdu u-text text-xl font-bold text-slate-900 truncate">{m.name_ur}</div>
-                <div className="text-sm font-bold text-violet-600 truncate" dir="ltr">{m.name_en}</div>
-                {m.color_name && <div className={`text-xs text-slate-400 ${isUr ? 'font-urdu' : ''}`}>{m.color_name}</div>}
+                <div className="font-urdu u-text text-xl font-bold text-stone-900 truncate">{m.name_ur}</div>
+                <div className="text-sm font-bold text-emerald-600 truncate" dir="ltr">{m.name_en}</div>
+                {m.color_name && <div className={`text-xs text-stone-400 ${isUr ? 'font-urdu' : ''}`}>{m.color_name}</div>}
               </div>
             </div>
             {(m.cuts ?? []).length > 0 && (
@@ -175,7 +175,7 @@ export default function MarbleTypesPage() {
                 ))}
               </div>
             )}
-            {m.notes && <p className={`text-xs text-slate-500 ${isUr ? 'font-urdu u-text' : ''}`}>{m.notes}</p>}
+            {m.notes && <p className={`text-xs text-stone-500 ${isUr ? 'font-urdu u-text' : ''}`}>{m.notes}</p>}
             <div className="flex gap-2 mt-auto pt-1">
               <Button size="sm" variant="info" onClick={() => openEdit(m)}>{t('common.edit')}</Button>
               <Button size="sm" variant="danger" onClick={() => setDel(m)}>{t('common.delete')}</Button>
@@ -213,7 +213,7 @@ export default function MarbleTypesPage() {
                 type="color"
                 value={colorHex}
                 onChange={(e) => setColorHex(e.target.value)}
-                className="h-12 w-14 rounded-2xl border-2 border-slate-200 cursor-pointer bg-white p-1"
+                className="h-12 w-14 rounded-2xl border-2 border-stone-200 cursor-pointer bg-white p-1"
               />
             </label>
             <div className="flex-1">
@@ -223,8 +223,8 @@ export default function MarbleTypesPage() {
 
           {/* cuts multi-select chips + custom */}
           <div className="sm:col-span-2">
-            <div className={`text-sm font-semibold text-slate-700 mb-1.5 ${isUr ? 'font-urdu u-text' : ''}`}>{t('marbleTypes.cuts')}</div>
-            <p className={`text-xs text-slate-400 mb-2 ${isUr ? 'font-urdu' : ''}`}>{t('marbleTypes.cutsHint')}</p>
+            <div className={`text-sm font-semibold text-stone-700 mb-1.5 ${isUr ? 'font-urdu u-text' : ''}`}>{t('marbleTypes.cuts')}</div>
+            <p className={`text-xs text-stone-400 mb-2 ${isUr ? 'font-urdu' : ''}`}>{t('marbleTypes.cutsHint')}</p>
             <div className="flex flex-wrap gap-2">
               {MARBLE_CUTS.map((c) => (
                 <button key={c.value} type="button" onClick={() => toggleCut(c.value)} className={`chip ${cuts.includes(c.value) ? 'chip-active' : ''}`}>

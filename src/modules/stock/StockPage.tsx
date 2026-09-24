@@ -208,7 +208,7 @@ export default function StockPage() {
             label: t('stock.stockType'),
             render: (s) => (
               <span className="flex items-center gap-2 font-bold">
-                <span className="h-3.5 w-3.5 rounded-full inline-block border border-slate-300" style={{ background: s.color ?? '#94a3b8' }} />
+                <span className="h-3.5 w-3.5 rounded-full inline-block border border-stone-300" style={{ background: s.color ?? '#94a3b8' }} />
                 <span className={isUr ? 'font-urdu' : ''}>{s.marble_type_name || '—'}</span>
               </span>
             )
@@ -295,7 +295,7 @@ export default function StockPage() {
             <Input label={t('stock.locationNote')} value={location} onChange={setLocation} icon={Boxes} />
           </div>
           {/* live total value = فٹواری × ریٹ */}
-          <div className="sm:col-span-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-5 py-4 flex items-center justify-between font-extrabold">
+          <div className="sm:col-span-2 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-5 py-4 flex items-center justify-between font-extrabold">
             <span className={isUr ? 'font-urdu u-text' : ''}>{t('stock.totalValue')}:</span>
             <span className="text-2xl tabular-nums" dir="ltr">{fmtNum(liveValue)}</span>
           </div>

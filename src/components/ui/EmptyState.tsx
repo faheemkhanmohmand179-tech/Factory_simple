@@ -16,11 +16,11 @@ export default function EmptyState({ icon: Icon, title, hint, actionLabel, onAct
   const { t, isUr } = useLang();
   return (
     <div className="glass rounded-3xl shadow-glass px-4 py-14 flex flex-col items-center text-center gap-4">
-      <div className="h-20 w-20 rounded-4xl bg-gradient-to-br from-indigo-500 via-violet-500 to-pink-500 grid place-items-center shadow-lg">
+      <div className="h-20 w-20 rounded-4xl bg-gradient-to-br from-teal-500 via-emerald-500 to-amber-500 grid place-items-center shadow-lg">
         {Icon ? <Icon className="h-10 w-10 text-white" /> : null}
       </div>
-      <div className={`text-xl font-extrabold text-slate-700 ${isUr ? 'font-urdu u-text' : ''}`}>{title ?? t('common.noRecords')}</div>
-      {hint && <div className={`text-sm text-slate-400 max-w-sm ${isUr ? 'font-urdu u-text' : ''}`}>{hint}</div>}
+      <div className={`text-xl font-extrabold text-stone-700 ${isUr ? 'font-urdu u-text' : ''}`}>{title ?? t('common.noRecords')}</div>
+      {hint && <div className={`text-sm text-stone-400 max-w-sm ${isUr ? 'font-urdu u-text' : ''}`}>{hint}</div>}
       {actionLabel && onEmptyActionGuard()}
       {children}
     </div>

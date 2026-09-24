@@ -213,7 +213,7 @@ export default function CustomersPage() {
             render: (c) => {
               const b = balances.get(c.id)?.balance ?? 0;
               return (
-                <span className={`font-extrabold ${b > 0 ? 'text-emerald-700' : b < 0 ? 'text-rose-700' : 'text-slate-500'}`}>
+                <span className={`font-extrabold ${b > 0 ? 'text-emerald-700' : b < 0 ? 'text-rose-700' : 'text-stone-500'}`}>
                   {b >= 0 ? '+' : '-'}{fmtNum(Math.abs(b))}
                 </span>
               );
@@ -225,7 +225,7 @@ export default function CustomersPage() {
             type="button"
             title={t('customers.viewLedger')}
             onClick={() => navigate(`/customer/${c.id}`)}
-            className="h-11 w-11 grid place-items-center rounded-xl bg-violet-100 text-violet-600 hover:bg-violet-200 transition active:scale-95"
+            className="h-11 w-11 grid place-items-center rounded-xl bg-emerald-100 text-emerald-600 hover:bg-emerald-200 transition active:scale-95"
           >
             <BookOpen className="h-4.5 w-4.5" />
           </button>

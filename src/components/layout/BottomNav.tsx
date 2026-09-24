@@ -8,7 +8,6 @@ import {
   FileText,
   HardHat,
   Home,
-  LogOut,
   Menu,
   Receipt,
   Ruler,
@@ -20,7 +19,6 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useLang } from '../../i18n';
-import { useAuth } from '../../auth/AuthProvider';
 
 const MAIN: { path: string; key: string; icon: LucideIcon; end: boolean }[] = [
   { path: '/', key: 'dashboard', icon: Home, end: true },
@@ -44,7 +42,6 @@ const MORE: { path: string; key: string; icon: LucideIcon }[] = [
 /** Mobile bottom nav: Dashboard · Bill · Customers · Labour · More (sheet) */
 export default function BottomNav() {
   const { t, isUr } = useLang();
-  const { signOut } = useAuth();
   const location = useLocation();
   const [moreOpen, setMoreOpen] = useState(false);
 
@@ -98,12 +95,12 @@ export default function BottomNav() {
         <>
           <div className="fixed inset-0 z-[9998] bg-black/60 backdrop-blur-sm fade-in lg:hidden" onClick={() => setMoreOpen(false)} />
           <div className="fixed bottom-0 inset-x-0 z-[9999] lg:hidden rounded-t-3xl bg-white shadow-2xl slide-up pb-safe max-h-[75vh] overflow-y-auto scroll-slim">
-            <div className="sticky top-0 bg-white/95 backdrop-blur px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-              <h3 className={`text-lg font-extrabold text-slate-900 ${isUr ? 'font-urdu u-head' : ''}`}>{t('nav.more')}</h3>
+            <div className="sticky top-0 bg-white/95 backdrop-blur px-5 py-4 border-b border-stone-100 flex items-center justify-between">
+              <h3 className={`text-lg font-extrabold text-stone-900 ${isUr ? 'font-urdu u-head' : ''}`}>{t('nav.more')}</h3>
               <button
                 type="button"
                 onClick={() => setMoreOpen(false)}
-                className="h-11 w-11 grid place-items-center rounded-2xl bg-slate-100 text-slate-500 active:scale-95"
+                className="h-11 w-11 grid place-items-center rounded-2xl bg-stone-100 text-stone-500 active:scale-95"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -115,7 +112,7 @@ export default function BottomNav() {
                   to={path}
                   className={({ isActive }) =>
                     `flex flex-col items-center gap-2 rounded-3xl px-3 py-5 font-extrabold text-sm transition active:scale-95 ${
-                      isActive ? 'bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-lg' : 'bg-indigo-50 text-indigo-700'
+                      isActive ? 'bg-gradient-to-br from-teal-600 to-emerald-600 text-white shadow-lg' : 'bg-teal-50 text-teal-700'
                     }`
                   }
                 >
@@ -123,14 +120,6 @@ export default function BottomNav() {
                   <span className={`text-center leading-snug ${isUr ? 'font-urdu' : ''}`}>{t(`nav.${key}`)}</span>
                 </NavLink>
               ))}
-              <button
-                type="button"
-                onClick={() => void signOut()}
-                className="flex flex-col items-center gap-2 rounded-3xl px-3 py-5 font-extrabold text-sm bg-rose-50 text-rose-600 active:scale-95 transition"
-              >
-                <LogOut className="h-7 w-7" />
-                <span className={isUr ? 'font-urdu' : ''}>{t('nav.logout')}</span>
-              </button>
             </div>
           </div>
         </>

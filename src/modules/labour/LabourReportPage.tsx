@@ -175,7 +175,7 @@ export default function LabourReportPage() {
 
       {report.length === 0 ? (
         <div className="glass rounded-3xl p-10 text-center">
-          <p className={`text-slate-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('labourReport.noData')}</p>
+          <p className={`text-stone-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('labourReport.noData')}</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -208,7 +208,7 @@ export default function LabourReportPage() {
                 key: 'remaining',
                 label: t('labourReport.remaining'),
                 align: 'right',
-                render: (r) => <span className={`font-extrabold ${r.remaining > 0 ? 'text-rose-600' : 'text-slate-400'}`}>{fmtNum(r.remaining)}</span>
+                render: (r) => <span className={`font-extrabold ${r.remaining > 0 ? 'text-rose-600' : 'text-stone-400'}`}>{fmtNum(r.remaining)}</span>
               }
             ]}
             extraActions={(r) => (

@@ -230,7 +230,7 @@ function ImportModal({
           }}
         />
         {fileName && (
-          <span className={`chip chip-static bg-indigo-50 text-indigo-700 ${isUr ? 'font-urdu' : ''}`} dir="ltr">
+          <span className={`chip chip-static bg-teal-50 text-teal-700 ${isUr ? 'font-urdu' : ''}`} dir="ltr">
             {fileName}
           </span>
         )}
@@ -255,10 +255,10 @@ function ImportModal({
 
       {/* Step 2: preview */}
       {parsed ? (
-        <div className="overflow-x-auto scroll-slim rounded-2xl border border-slate-200">
+        <div className="overflow-x-auto scroll-slim rounded-2xl border border-stone-200">
           <table className="w-full min-w-[720px] text-xs">
             <thead>
-              <tr className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white">
+              <tr className="bg-gradient-to-r from-teal-600 to-emerald-600 text-white">
                 <th className="px-3 py-2.5 text-start">#</th>
                 {cfg.columns.map((c) => (
                   <th key={c.key} className="px-3 py-2.5 text-start whitespace-nowrap">
@@ -274,11 +274,11 @@ function ImportModal({
                 return (
                   <tr
                     key={i}
-                    className={`border-b border-slate-100 ${
+                    className={`border-b border-stone-100 ${
                       r.error ? 'bg-rose-50' : dup ? 'bg-amber-50' : 'bg-emerald-50/60'
                     }`}
                   >
-                    <td className="px-3 py-2 tabular-nums text-slate-400" dir="ltr">{i + 1}</td>
+                    <td className="px-3 py-2 tabular-nums text-stone-400" dir="ltr">{i + 1}</td>
                     {cfg.columns.map((c) => (
                       <td key={c.key} className={`px-3 py-2 ${isUr ? 'font-urdu' : ''}`}>
                         {r.raw[c.key] || '-'}
@@ -305,15 +305,15 @@ function ImportModal({
             </tbody>
           </table>
           {parsed.results.length > 100 && (
-            <div className={`px-3 py-2 text-xs text-slate-400 text-center ${isUr ? 'font-urdu' : ''}`} dir="ltr">
+            <div className={`px-3 py-2 text-xs text-stone-400 text-center ${isUr ? 'font-urdu' : ''}`} dir="ltr">
               + {parsed.results.length - 100}
             </div>
           )}
         </div>
       ) : (
-        <div className={`rounded-2xl border-2 border-dashed border-indigo-200 bg-indigo-50/50 p-8 text-center ${isUr ? 'font-urdu u-text' : ''}`}>
-          <FileSpreadsheet className="h-10 w-10 text-indigo-400 mx-auto mb-3" />
-          <div className="font-bold text-slate-600">{t('import.preview')}: {t('common.swipeHint')}</div>
+        <div className={`rounded-2xl border-2 border-dashed border-teal-200 bg-teal-50/50 p-8 text-center ${isUr ? 'font-urdu u-text' : ''}`}>
+          <FileSpreadsheet className="h-10 w-10 text-teal-400 mx-auto mb-3" />
+          <div className="font-bold text-stone-600">{t('import.preview')}: {t('common.swipeHint')}</div>
         </div>
       )}
     </Modal>

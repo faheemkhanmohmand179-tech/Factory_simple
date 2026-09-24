@@ -16,10 +16,10 @@ export default function ChartCard({ title, icon = 'bar', height = 260, children 
   return (
     <div className="glass rounded-3xl shadow-glass p-4 sm:p-5">
       <div className={`flex items-center gap-2.5 mb-3 ${isUr ? 'font-urdu u-text' : ''}`}>
-        <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 grid place-items-center shadow">
+        <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 grid place-items-center shadow">
           <Icon className="h-4.5 w-4.5 text-white" />
         </div>
-        <h3 className="text-base font-extrabold text-slate-800">{title}</h3>
+        <h3 className="text-base font-extrabold text-stone-800">{title}</h3>
       </div>
       <div dir="ltr" style={{ width: '100%', height }}>
         {children}

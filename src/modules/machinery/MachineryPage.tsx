@@ -227,7 +227,7 @@ export default function MachineryPage() {
             Array.from({ length: 3 }).map((_, i) => <div key={i} className="glass rounded-3xl h-40 animate-pulse" />)}
           {!loading && filtered.length === 0 && (
             <div className="glass rounded-3xl p-10 text-center sm:col-span-2 xl:col-span-3">
-              <p className={`text-slate-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('machinery.noMachines')}</p>
+              <p className={`text-stone-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>{t('machinery.noMachines')}</p>
               <Button variant="primary" className="mt-4 mx-auto" onClick={openAdd}>{t('machinery.add')}</Button>
             </div>
           )}
@@ -236,36 +236,36 @@ export default function MachineryPage() {
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className={`h-12 w-12 shrink-0 rounded-2xl grid place-items-center text-white shadow-lg ${
-                    m.status === 'working' ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : m.status === 'repair' ? 'bg-gradient-to-br from-rose-500 to-red-600' : 'bg-gradient-to-br from-slate-400 to-slate-500'
+                    m.status === 'working' ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : m.status === 'repair' ? 'bg-gradient-to-br from-rose-500 to-red-600' : 'bg-gradient-to-br from-stone-400 to-stone-500'
                   }`}>
                     <Wrench className="h-6 w-6" />
                   </div>
                   <div className="min-w-0">
-                    <div className={`font-extrabold text-slate-800 truncate ${isUr ? 'font-urdu' : ''}`}>{m.name}</div>
-                    <div className="text-xs text-slate-400 truncate">{m.model || '—'}</div>
+                    <div className={`font-extrabold text-stone-800 truncate ${isUr ? 'font-urdu' : ''}`}>{m.name}</div>
+                    <div className="text-xs text-stone-400 truncate">{m.model || '—'}</div>
                   </div>
                 </div>
                 {statusChip(m)}
               </div>
               <div className="grid grid-cols-2 gap-2 text-sm">
-                <div className="rounded-2xl bg-indigo-50 px-3 py-2">
-                  <div className="text-[10px] font-bold text-slate-400">{t('machinery.machineType')}</div>
-                  <div className={`font-bold text-slate-700 ${isUr ? 'font-urdu' : ''}`}>{m.custom_type ?? optLabel(MACHINE_TYPES, m.type, lang, m.type)}</div>
+                <div className="rounded-2xl bg-teal-50 px-3 py-2">
+                  <div className="text-[10px] font-bold text-stone-400">{t('machinery.machineType')}</div>
+                  <div className={`font-bold text-stone-700 ${isUr ? 'font-urdu' : ''}`}>{m.custom_type ?? optLabel(MACHINE_TYPES, m.type, lang, m.type)}</div>
                 </div>
-                <div className="rounded-2xl bg-indigo-50 px-3 py-2">
-                  <div className="text-[10px] font-bold text-slate-400">{t('machinery.cost')}</div>
-                  <div className="font-bold text-slate-700 tabular-nums" dir="ltr">{fmtNum(m.cost)}</div>
+                <div className="rounded-2xl bg-teal-50 px-3 py-2">
+                  <div className="text-[10px] font-bold text-stone-400">{t('machinery.cost')}</div>
+                  <div className="font-bold text-stone-700 tabular-nums" dir="ltr">{fmtNum(m.cost)}</div>
                 </div>
-                <div className="rounded-2xl bg-indigo-50 px-3 py-2">
-                  <div className="text-[10px] font-bold text-slate-400">{t('machinery.purchaseDate')}</div>
-                  <div className="font-bold text-slate-700 tabular-nums" dir="ltr">{m.purchase_date ? fmtDate(m.purchase_date) : '—'}</div>
+                <div className="rounded-2xl bg-teal-50 px-3 py-2">
+                  <div className="text-[10px] font-bold text-stone-400">{t('machinery.purchaseDate')}</div>
+                  <div className="font-bold text-stone-700 tabular-nums" dir="ltr">{m.purchase_date ? fmtDate(m.purchase_date) : '—'}</div>
                 </div>
-                <div className="rounded-2xl bg-indigo-50 px-3 py-2">
-                  <div className="text-[10px] font-bold text-slate-400">{t('machinery.maintenance')}</div>
-                  <div className="font-bold text-slate-700 tabular-nums" dir="ltr">{fmtNum(maintenanceTotal(m.id))}</div>
+                <div className="rounded-2xl bg-teal-50 px-3 py-2">
+                  <div className="text-[10px] font-bold text-stone-400">{t('machinery.maintenance')}</div>
+                  <div className="font-bold text-stone-700 tabular-nums" dir="ltr">{fmtNum(maintenanceTotal(m.id))}</div>
                 </div>
               </div>
-              {m.notes && <p className={`text-xs text-slate-500 ${isUr ? 'font-urdu u-text' : ''}`}>{m.notes}</p>}
+              {m.notes && <p className={`text-xs text-stone-500 ${isUr ? 'font-urdu u-text' : ''}`}>{m.notes}</p>}
               <div className="flex flex-wrap gap-2 mt-auto pt-1">
                 <Button size="sm" variant="warning" icon={Wrench} onClick={() => setLogFor(m)}>{t('machinery.maintenance')}</Button>
                 <Button size="sm" variant="info" onClick={() => openEdit(m)}>{t('common.edit')}</Button>
@@ -335,15 +335,15 @@ export default function MachineryPage() {
 
         <div className="mt-4 space-y-2">
           {logsOf(logFor?.id ?? '').length === 0 ? (
-            <p className={`text-sm text-slate-400 text-center py-6 ${isUr ? 'font-urdu u-text' : ''}`}>{t('machinery.noLogs')}</p>
+            <p className={`text-sm text-stone-400 text-center py-6 ${isUr ? 'font-urdu u-text' : ''}`}>{t('machinery.noLogs')}</p>
           ) : (
             logsOf(logFor?.id ?? '')
               .sort((a, b) => (a.log_date < b.log_date ? 1 : -1))
               .map((l) => (
-                <div key={l.id} className="flex items-center gap-3 rounded-2xl bg-indigo-50/70 px-4 py-3">
-                  <div className="tabular-nums text-xs font-bold text-slate-500 shrink-0" dir="ltr">{fmtDate(l.log_date)}</div>
-                  <div className={`flex-1 text-sm font-semibold text-slate-700 truncate ${isUr ? 'font-urdu' : ''}`}>{l.description || '—'}</div>
-                  <div className="font-extrabold text-slate-800 tabular-nums" dir="ltr">{fmtNum(l.cost)}</div>
+                <div key={l.id} className="flex items-center gap-3 rounded-2xl bg-teal-50/70 px-4 py-3">
+                  <div className="tabular-nums text-xs font-bold text-stone-500 shrink-0" dir="ltr">{fmtDate(l.log_date)}</div>
+                  <div className={`flex-1 text-sm font-semibold text-stone-700 truncate ${isUr ? 'font-urdu' : ''}`}>{l.description || '—'}</div>
+                  <div className="font-extrabold text-stone-800 tabular-nums" dir="ltr">{fmtNum(l.cost)}</div>
                   <button
                     type="button"
                     onClick={() => setDelLog(l)}

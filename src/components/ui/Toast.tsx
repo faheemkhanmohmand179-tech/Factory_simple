@@ -35,8 +35,8 @@ const Ctx = createContext<ToastApi>({
 const STYLES: Record<ToastType, string> = {
   success: 'bg-gradient-to-r from-emerald-500 to-teal-500',
   error: 'bg-gradient-to-r from-rose-500 to-red-500',
-  info: 'bg-gradient-to-r from-sky-500 to-cyan-500',
-  discard: 'bg-gradient-to-r from-slate-500 to-slate-600'
+  info: 'bg-gradient-to-r from-cyan-500 to-cyan-500',
+  discard: 'bg-gradient-to-r from-stone-500 to-stone-600'
 };
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -85,7 +85,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                   t.action?.onClick();
                   dismiss(t.id);
                 }}
-                className="shrink-0 rounded-xl bg-white/90 text-slate-900 px-3 py-1.5 text-xs font-extrabold hover:bg-white active:scale-95 transition"
+                className="shrink-0 rounded-xl bg-white/90 text-stone-900 px-3 py-1.5 text-xs font-extrabold hover:bg-white active:scale-95 transition"
               >
                 {t.action.label}
               </button>

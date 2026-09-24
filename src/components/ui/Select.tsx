@@ -47,10 +47,10 @@ export default function Select({
   return (
     <label className="block">
       {label && (
-        <span className={`block text-sm font-semibold text-slate-700 mb-1.5 ${isUr ? 'font-urdu u-text' : ''}`}>{label}</span>
+        <span className={`block text-sm font-semibold text-stone-700 mb-1.5 ${isUr ? 'font-urdu u-text' : ''}`}>{label}</span>
       )}
       <div className="relative">
-        {Icon && <Icon className="absolute top-1/2 -translate-y-1/2 start-3.5 h-5 w-5 text-slate-400 pointer-events-none" />}
+        {Icon && <Icon className="absolute top-1/2 -translate-y-1/2 start-3.5 h-5 w-5 text-stone-400 pointer-events-none" />}
         <select
           value={selectValue}
           onChange={(e) => {
@@ -76,12 +76,12 @@ export default function Select({
             </option>
           )}
         </select>
-        <ChevronDown className="absolute top-1/2 -translate-y-1/2 end-3.5 h-5 w-5 text-slate-400 pointer-events-none" />
+        <ChevronDown className="absolute top-1/2 -translate-y-1/2 end-3.5 h-5 w-5 text-stone-400 pointer-events-none" />
       </div>
 
       {customMode && (
         <div className="relative mt-2">
-          <PenLine className="absolute top-1/2 -translate-y-1/2 start-3.5 h-4 w-4 text-violet-500 pointer-events-none" />
+          <PenLine className="absolute top-1/2 -translate-y-1/2 start-3.5 h-4 w-4 text-emerald-500 pointer-events-none" />
           <input
             type="text"
             value={value}

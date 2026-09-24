@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Gem, LogOut, PanelLeft, Wifi, WifiOff } from 'lucide-react';
-import { useAuth } from '../../auth/AuthProvider';
+import { Gem, PanelLeft, Wifi, WifiOff } from 'lucide-react';
 import { useLang } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
 import { FACTORY } from '../../lib/factory';
 import LangToggle from '../ui/LangToggle';
-import { useToast } from '../ui/Toast';
 
-/** Top bar: logo + factory name + online indicator + language toggle + logout */
+/** Top bar: logo + factory name + online indicator + language toggle */
 export default function Navbar() {
   const { t, isUr } = useLang();
-  const { signOut } = useAuth();
-  const toast = useToast();
   const [online, setOnline] = useState(navigator.onLine);
   const toggleSidebar = useAppStore((s) => s.setSidebarCollapsed);
   const collapsed = useAppStore((s) => s.sidebarCollapsed);
@@ -26,14 +22,6 @@ export default function Navbar() {
       window.removeEventListener('offline', off);
     };
   }, []);
-
-  const doLogout = async () => {
-    try {
-      await signOut();
-    } catch {
-      toast.error(t('toast.error'));
-    }
-  };
 
   return (
     <header className="navbar-glass fixed top-0 inset-x-0 z-40">
@@ -50,7 +38,7 @@ export default function Navbar() {
 
         {/* logo + name */}
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="h-10 w-10 shrink-0 rounded-2xl bg-gradient-to-br from-amber-400 via-pink-500 to-violet-600 grid place-items-center shadow-lg ring-2 ring-white/40">
+          <div className="h-10 w-10 shrink-0 rounded-lg bg-gradient-to-br from-amber-400 via-emerald-500 to-teal-700 grid place-items-center shadow-lg ring-2 ring-white/40">
             <Gem className="h-5 w-5 text-white" />
           </div>
           <div className="min-w-0 leading-tight">
@@ -76,15 +64,6 @@ export default function Navbar() {
         </span>
 
         <LangToggle />
-
-        <button
-          type="button"
-          onClick={() => void doLogout()}
-          title={t('nav.logout')}
-          className="h-11 w-11 grid place-items-center rounded-2xl bg-white/15 hover:bg-rose-500/60 border border-white/30 text-white transition active:scale-95"
-        >
-          <LogOut className="h-5 w-5" />
-        </button>
       </div>
     </header>
   );

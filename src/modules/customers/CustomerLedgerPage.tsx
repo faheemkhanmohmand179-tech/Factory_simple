@@ -147,7 +147,7 @@ export default function CustomerLedgerPage() {
   if (!customer) {
     return (
       <div className="glass rounded-3xl p-10 text-center">
-        <p className={`text-slate-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>…</p>
+        <p className={`text-stone-500 font-bold ${isUr ? 'font-urdu u-text' : ''}`}>…</p>
         <Button variant="primary" icon={ArrowLeft} className="mt-4 mx-auto" onClick={() => navigate('/customers')}>
           {t('common.back')}
         </Button>
@@ -177,7 +177,7 @@ export default function CustomerLedgerPage() {
             ? 'bg-gradient-to-r from-emerald-500 to-teal-600'
             : balance < 0
               ? 'bg-gradient-to-r from-rose-500 to-red-600'
-              : 'bg-gradient-to-r from-slate-500 to-slate-600'
+              : 'bg-gradient-to-r from-stone-500 to-stone-600'
         }`}
       >
         <div className="flex items-center gap-3">
@@ -214,14 +214,14 @@ export default function CustomerLedgerPage() {
               </div>
             )
           },
-          { key: 'debit', label: isUr ? 'ادھار' : 'Debit (Udhaar)', align: 'right', render: (e) => e.debit ? <span className="text-emerald-700 font-bold">{fmtNum(e.debit)}</span> : <span className="text-slate-300">—</span> },
-          { key: 'credit', label: isUr ? 'جمع' : 'Credit (Jama)', align: 'right', render: (e) => e.credit ? <span className="text-rose-700 font-bold">{fmtNum(e.credit)}</span> : <span className="text-slate-300">—</span> },
+          { key: 'debit', label: isUr ? 'ادھار' : 'Debit (Udhaar)', align: 'right', render: (e) => e.debit ? <span className="text-emerald-700 font-bold">{fmtNum(e.debit)}</span> : <span className="text-stone-300">—</span> },
+          { key: 'credit', label: isUr ? 'جمع' : 'Credit (Jama)', align: 'right', render: (e) => e.credit ? <span className="text-rose-700 font-bold">{fmtNum(e.credit)}</span> : <span className="text-stone-300">—</span> },
           {
             key: 'running',
             label: t('customers.balance'),
             align: 'right',
             render: (e) => (
-              <span className={`font-extrabold ${e.running > 0 ? 'text-emerald-700' : e.running < 0 ? 'text-rose-700' : 'text-slate-500'}`}>
+              <span className={`font-extrabold ${e.running > 0 ? 'text-emerald-700' : e.running < 0 ? 'text-rose-700' : 'text-stone-500'}`}>
                 {e.running >= 0 ? '+' : '-'}{fmtNum(Math.abs(e.running))}
               </span>
             )
