@@ -110,6 +110,8 @@ export interface Customer {
   opening_balance: number | null;
   notes: string | null;
   created_at: string;
+  photo_urls?: string[] | null;
+  custom_fields?: Record<string, string> | null;
 }
 
 export interface LedgerEntry {
@@ -241,6 +243,21 @@ export interface StockItem {
   rate_per_sqft: number;
   location_note: string | null;
   updated_at: string;
+  /** product photos — Supabase Storage public URLs */
+  photo_urls?: string[] | null;
+  /** values for any manually-added columns (see CustomColumn / SettingsPage) */
+  custom_fields?: Record<string, string> | null;
+}
+
+/** A manually-added extra column for the Stock table, defined in Settings */
+export interface CustomColumn {
+  id: string;
+  table_name: string;
+  key: string;
+  label_ur: string;
+  label_en: string;
+  sort_order: number;
+  created_at: string;
 }
 
 export interface Expense {

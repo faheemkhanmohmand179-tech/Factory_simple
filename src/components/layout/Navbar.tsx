@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Gem, PanelLeft, Wifi, WifiOff } from 'lucide-react';
+import { Gem, PanelLeft } from 'lucide-react';
 import { useLang } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
 import { FACTORY } from '../../lib/factory';
-import LangToggle from '../ui/LangToggle';
 
-/** Top bar: logo + factory name + online indicator + language toggle */
+/** Top bar: logo + factory name + a small online/offline dot. Language lives in Settings. */
 export default function Navbar() {
-  const { t, isUr } = useLang();
+  const { t } = useLang();
   const [online, setOnline] = useState(navigator.onLine);
   const toggleSidebar = useAppStore((s) => s.setSidebarCollapsed);
   const collapsed = useAppStore((s) => s.sidebarCollapsed);
@@ -51,19 +50,13 @@ export default function Navbar() {
 
         <div className="flex-1" />
 
-        {/* online / offline indicator */}
+        {/* small online / offline dot — full status + language toggle live in Settings */}
         <span
-          className={`inline-flex items-center gap-1.5 rounded-2xl px-2.5 sm:px-3.5 h-10 text-xs sm:text-sm font-extrabold border transition ${
-            online ? 'bg-emerald-400/20 border-emerald-300/50 text-emerald-50' : 'bg-rose-500/30 border-rose-300/50 text-rose-50'
-          }`}
+          className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white/10"
           title={online ? t('common.online') : t('common.offline')}
         >
-          {online ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />}
-          <span className={`hidden sm:inline ${isUr ? 'font-urdu' : ''}`}>{online ? t('common.online') : t('common.offline')}</span>
-          <span className={`h-2 w-2 rounded-full ${online ? 'bg-emerald-300 animate-pulse' : 'bg-rose-300'}`} />
+          <span className={`h-2.5 w-2.5 rounded-full ${online ? 'bg-emerald-300 animate-pulse' : 'bg-rose-300'}`} />
         </span>
-
-        <LangToggle />
       </div>
     </header>
   );

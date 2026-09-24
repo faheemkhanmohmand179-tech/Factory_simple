@@ -58,15 +58,15 @@ export default function DataTable<T = Record<string, unknown>>({
       </div>
 
       <div className="overflow-x-auto scroll-slim">
-        <table className={`w-full min-w-[720px] text-sm ${isUr ? 'urdu-table' : ''}`}>
+        <table className={`w-full min-w-[720px] text-sm table-colorful ${isUr ? 'urdu-table' : ''}`}>
           <thead>
             <tr className="bg-gradient-to-r from-teal-600 to-emerald-600 text-white">
               {columns.map((c) => (
                 <th
                   key={c.key}
                   className={`sticky top-0 z-[5] bg-gradient-to-r from-teal-600 to-emerald-600 px-4 py-3.5 font-bold text-start whitespace-nowrap ${
-                    c.align === 'right' ? 'text-end' : c.align === 'center' ? 'text-center' : ''
-                  }`}
+                    isUr ? 'font-urdu u-head-sm' : ''
+                  } ${c.align === 'right' ? 'text-end' : c.align === 'center' ? 'text-center' : ''}`}
                 >
                   {c.label}
                 </th>
@@ -97,12 +97,12 @@ export default function DataTable<T = Record<string, unknown>>({
               : rows.map((row, i) => (
                   <tr
                     key={rowKey ? rowKey(row, i) : ((row as { id?: string }).id ?? String(i))}
-                    className={`border-b border-stone-100 odd:bg-white even:bg-teal-50/40 hover:bg-teal-100/60 transition-colors ${rowClass ? rowClass(row) : ''}`}
+                    className={`transition-colors ${rowClass ? rowClass(row) : ''}`}
                   >
                     {columns.map((c) => (
                       <td
                         key={c.key}
-                        className={`px-4 py-3 text-stone-700 ${c.align === 'right' ? 'text-end tabular-nums' : c.align === 'center' ? 'text-center' : ''} ${c.className ?? ''}`}
+                        className={`px-4 py-3 text-stone-700 ${isUr && !c.render ? 'font-urdu u-text' : ''} ${c.align === 'right' ? 'text-end tabular-nums' : c.align === 'center' ? 'text-center' : ''} ${c.className ?? ''}`}
                       >
                         {c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key] ?? '-')}
                       </td>

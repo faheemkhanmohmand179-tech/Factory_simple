@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Boxes, TriangleAlert } from 'lucide-react';
+import { Boxes, ImageIcon, TriangleAlert } from 'lucide-react';
 import PageHeader from '../../components/ui/PageHeader';
 import DataTable from '../../components/ui/DataTable';
 import Modal from '../../components/ui/Modal';
@@ -7,11 +7,13 @@ import Input from '../../components/ui/Input';
 import Select from '../../components/ui/Select';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import ExportImportBar from '../../components/ui/ExportImportBar';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useStock } from '../../hooks/useStock';
 import { useMarbleTypes } from '../../hooks/useMarbleTypes';
 import { useMarbleSizes } from '../../hooks/useMarbleSizes';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import type { StockItem } from '../../types';
 import { fmtNum, num, toLatinDigits } from '../../utils/format';
 import { parseNumCell, type ImportConfig } from '../../import/importExcel';
@@ -22,6 +24,7 @@ export default function StockPage() {
   const { rows: stock, loading, insert, update, remove } = useStock();
   const { rows: marbleTypes } = useMarbleTypes();
   const { rows: marbleSizes } = useMarbleSizes();
+  const { rows: customCols } = useCustomColumns('stock');
 
   const [q, setQ] = useState('');
   const [modal, setModal] = useState<{ open: boolean; edit?: StockItem }>({ open: false });
@@ -37,6 +40,8 @@ export default function StockPage() {
   const [rate, setRate] = useState('');
   const [location, setLocation] = useState('');
   const [typeErr, setTypeErr] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [customVals, setCustomVals] = useState<Record<string, string>>({});
 
   const filtered = useMemo(() => {
     const needle = toLatinDigits(q.trim().toLowerCase());
@@ -62,6 +67,8 @@ export default function StockPage() {
     setRate('');
     setLocation('');
     setTypeErr('');
+    setPhotos([]);
+    setCustomVals({});
     setModal({ open: true });
   };
 
@@ -76,6 +83,8 @@ export default function StockPage() {
     setRate(String(num(s.rate_per_sqft)));
     setLocation(s.location_note ?? '');
     setTypeErr('');
+    setPhotos(s.photo_urls ?? []);
+    setCustomVals(s.custom_fields ?? {});
     setModal({ open: true, edit: s });
   };
 
@@ -96,6 +105,8 @@ export default function StockPage() {
       square_feet: num(sqft),
       rate_per_sqft: num(rate),
       location_note: location.trim() || null,
+      photo_urls: photos.length ? photos : null,
+      custom_fields: Object.keys(customVals).length ? customVals : null,
       updated_at: new Date().toISOString()
     };
     try {
@@ -204,6 +215,18 @@ export default function StockPage() {
         rowClass={(s) => (num(s.quantity) < 10 ? '!bg-amber-50' : '')}
         columns={[
           {
+            key: 'photo',
+            label: t('photos.title'),
+            render: (s) =>
+              s.photo_urls && s.photo_urls.length > 0 ? (
+                <img src={s.photo_urls[0]} alt="" className="h-11 w-11 rounded-xl object-cover border-2 border-teal-200" />
+              ) : (
+                <span className="h-11 w-11 grid place-items-center rounded-xl bg-stone-100 text-stone-300">
+                  <ImageIcon className="h-5 w-5" />
+                </span>
+              )
+          },
+          {
             key: 'type',
             label: t('stock.stockType'),
             render: (s) => (
@@ -232,7 +255,12 @@ export default function StockPage() {
             )
           },
           { key: 'square_feet', label: t('stock.sqft'), align: 'right', render: (s) => fmtNum(s.square_feet) },
-          { key: 'rate_per_sqft', label: t('stock.ratePerSqft'), align: 'right', render: (s) => fmtNum(s.rate_per_sqft) }
+          { key: 'rate_per_sqft', label: t('stock.ratePerSqft'), align: 'right', render: (s) => fmtNum(s.rate_per_sqft) },
+          ...customCols.map((c) => ({
+            key: `custom_${c.key}`,
+            label: isUr ? c.label_ur : c.label_en,
+            render: (s: StockItem) => <span className={isUr ? 'font-urdu' : ''}>{s.custom_fields?.[c.key] || '—'}</span>
+          }))
         ]}
         onEdit={openEdit}
         onDelete={(s) => setDel(s)}
@@ -299,6 +327,21 @@ export default function StockPage() {
             <span className={isUr ? 'font-urdu u-text' : ''}>{t('stock.totalValue')}:</span>
             <span className="text-2xl tabular-nums" dir="ltr">{fmtNum(liveValue)}</span>
           </div>
+
+          {/* manually-added columns (from Settings) */}
+          {customCols.map((c) => (
+            <Input
+              key={c.id}
+              label={isUr ? c.label_ur : c.label_en}
+              value={customVals[c.key] ?? ''}
+              onChange={(v) => setCustomVals((prev) => ({ ...prev, [c.key]: v }))}
+            />
+          ))}
+        </div>
+
+        {/* photos — kept below the main fields so the person scrolls to see them */}
+        <div className="mt-6 pt-6 border-t border-stone-100">
+          <PhotoUpload urls={photos} onChange={setPhotos} folder="stock" />
         </div>
       </Modal>
 

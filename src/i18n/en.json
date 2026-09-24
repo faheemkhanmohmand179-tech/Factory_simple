@@ -1,6 +1,5 @@
 {
   "app.name": "NEW ALMAKKA FACTORY",
-
   "common.save": "Save",
   "common.dontSave": "Don't Save",
   "common.cancel": "Cancel",
@@ -53,7 +52,6 @@
   "common.confirmDeleteTitle": "Confirm delete",
   "common.offline": "Offline",
   "common.online": "Online",
-
   "nav.dashboard": "Dashboard",
   "nav.invoices": "Bills",
   "nav.customers": "Customers",
@@ -69,7 +67,6 @@
   "nav.settings": "Settings",
   "nav.more": "More",
   "nav.logout": "Logout",
-
   "auth.title": "NEW ALMAKKA FACTORY",
   "auth.subtitle": "Marble factory manager — sign in to continue",
   "auth.email": "Email",
@@ -79,7 +76,6 @@
   "auth.error": "Wrong email or password",
   "auth.notConfigured": "Supabase is not connected yet",
   "auth.notConfiguredHint": "Copy .env.example to .env and paste your Supabase URL and anon key, then restart the app.",
-
   "dashboard.todaysSales": "Today's Sales",
   "dashboard.monthSales": "This Month's Sales",
   "dashboard.totalReceived": "Total Received",
@@ -105,7 +101,6 @@
   "dashboard.noInvoices": "No bills yet",
   "dashboard.noCustomers": "No customers yet",
   "dashboard.noAbsent": "Everyone is present today",
-
   "invoice.bill": "Bill",
   "invoice.newTitle": "New Bill",
   "invoice.editTitle": "Edit Bill",
@@ -148,7 +143,6 @@
   "invoice.noStock": "No stock items yet",
   "invoice.dateLabel": "Date",
   "invoice.discardConfirm": "Bill is not saved — leave without saving?",
-
   "customers.title": "Customers & Suppliers",
   "customers.add": "Add Customer",
   "customers.edit": "Edit Customer",
@@ -172,7 +166,6 @@
   "customers.saved": "Customer saved",
   "customers.deleted": "Customer deleted",
   "customers.deleteConfirm": "Delete this customer and their ledger? This cannot be undone.",
-
   "ledger.title": "Ledger",
   "ledger.addEntry": "Add Entry",
   "ledger.editEntry": "Edit Entry",
@@ -187,7 +180,6 @@
   "ledger.denaCard": "To pay to this party",
   "ledger.clearCard": "All clear — nothing to receive or pay",
   "ledger.noEntries": "No entries yet",
-
   "labour.title": "Labour",
   "labour.add": "Add Labour",
   "labour.edit": "Edit Labour",
@@ -201,7 +193,6 @@
   "labour.tabAttendance": "Attendance",
   "labour.tabReports": "Reports",
   "labour.customCategory": "Custom category",
-
   "attendance.title": "Attendance",
   "attendance.present": "Present",
   "attendance.absent": "Absent",
@@ -214,7 +205,6 @@
   "attendance.savedAuto": "Saved",
   "attendance.summary": "Summary",
   "attendance.noActiveLabour": "No active labour — add labour first",
-
   "labourReport.title": "Labour Report",
   "labourReport.daily": "Daily",
   "labourReport.weekly": "Weekly",
@@ -235,7 +225,6 @@
   "labourReport.paymentSaved": "Wage payment saved",
   "labourReport.noData": "No data in this range",
   "labourReport.range": "Date range",
-
   "machinery.title": "Machinery",
   "machinery.add": "Add Machine",
   "machinery.edit": "Edit Machine",
@@ -261,7 +250,6 @@
   "machinery.listView": "Table",
   "machinery.noMachines": "No machines yet",
   "machinery.noLogs": "No maintenance records yet",
-
   "marbleTypes.title": "Marble Types",
   "marbleTypes.add": "Add Type",
   "marbleTypes.edit": "Edit Type",
@@ -275,7 +263,6 @@
   "marbleTypes.deleted": "Marble type deleted",
   "marbleTypes.deleteConfirm": "Delete this marble type?",
   "marbleTypes.noTypes": "No marble types yet",
-
   "marbleSizes.title": "Marble Sizes",
   "marbleSizes.add": "New Size",
   "marbleSizes.edit": "Edit Size",
@@ -287,7 +274,6 @@
   "marbleSizes.saved": "Size saved",
   "marbleSizes.deleted": "Size deleted",
   "marbleSizes.deleteConfirm": "Delete this size?",
-
   "stock.title": "Stock",
   "stock.add": "Add Stock",
   "stock.edit": "Edit Stock",
@@ -304,7 +290,6 @@
   "stock.deleted": "Stock deleted",
   "stock.deleteConfirm": "Delete this stock item?",
   "stock.noStock": "No stock items yet",
-
   "expenses.title": "Expenses",
   "expenses.add": "Add Expense",
   "expenses.edit": "Edit Expense",
@@ -317,7 +302,6 @@
   "expenses.deleted": "Expense deleted",
   "expenses.deleteConfirm": "Delete this expense?",
   "expenses.noExpenses": "No expenses yet",
-
   "reports.title": "Reports",
   "reports.daily": "Daily",
   "reports.weekly": "Weekly",
@@ -335,7 +319,6 @@
   "reports.printReport": "Print Report",
   "reports.noData": "No data in this range",
   "reports.rangeLabel": "Date range",
-
   "settings.title": "Settings",
   "settings.language": "Language",
   "settings.urdu": "اردو",
@@ -357,14 +340,12 @@
   "settings.saved": "Settings saved",
   "settings.logoutBtn": "Logout",
   "settings.logoutConfirm": "Log out of the app?",
-
   "exportbar.pdf": "PDF",
   "exportbar.wa": "WhatsApp",
   "exportbar.excel": "Excel",
   "exportbar.word": "Word",
   "exportbar.csv": "CSV",
   "exportbar.importBtn": "Import",
-
   "import.title": "Import",
   "import.downloadTemplate": "Download Template",
   "import.chooseFile": "Choose File",
@@ -385,22 +366,33 @@
   "import.emptyFile": "This file has no data rows",
   "import.summaryLine": "{{ok}} rows valid, {{bad}} have problems",
   "import.dupQuestion": "{{n}} duplicate records found — skip them or update them?",
-
   "toast.saved": "Saved successfully",
   "toast.deleted": "Deleted",
   "toast.discarded": "Changes discarded",
   "toast.error": "Something went wrong",
   "toast.offline": "You are offline — connect to the internet to save",
-
   "sw.updateAvailable": "A new version is available — update?",
   "sw.reload": "Reload",
-
   "offline.banner": "Internet is off — saving needs an internet connection",
-
   "validation.nameEmpty": "Name is empty",
   "validation.amountEmpty": "Amount is empty",
   "validation.dateInvalid": "Date is not valid",
   "validation.numberInvalid": "Number is not valid",
   "validation.notFound": "Not found in the list",
-  "validation.required": "This field is required"
+  "validation.required": "This field is required",
+  "photos.title": "Photos",
+  "photos.add": "Add Photo",
+  "photos.uploading": "Uploading...",
+  "photos.uploaded": "Photo saved",
+  "photos.uploadError": "Could not upload photo",
+  "photos.limitReached": "Maximum photos reached",
+  "settings.customColumns": "Extra Columns (Stock)",
+  "settings.customColumnsHint": "Add your own extra columns for Stock — name each column in Urdu and English",
+  "settings.addColumn": "Add Column",
+  "settings.columnNameUr": "Column Name (Urdu)",
+  "settings.columnNameEn": "Column Name (English)",
+  "settings.noCustomColumns": "No extra columns yet",
+  "settings.columnAdded": "Column added",
+  "settings.columnDeleted": "Column deleted",
+  "settings.columnDeleteConfirm": "Delete this column and all its values?"
 }

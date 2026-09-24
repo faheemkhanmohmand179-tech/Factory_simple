@@ -324,3 +324,65 @@ on conflict (label) do nothing;
 insert into public.app_settings (id, lang, theme, default_rate_mode, invoice_prefix, next_invoice_no, show_bubbles, currency_label)
 values ('app', 'ur', 'light', 'sqft', 'AF', 1, true, 'روپے')
 on conflict (id) do nothing;
+
+-- ═══════════════════════════════════════════════════════════════════
+-- ADD-ON: product photos, manual custom columns
+-- Paste this section (or the whole file) into SQL Editor → Run.
+-- Safe to re-run.
+-- ═══════════════════════════════════════════════════════════════════
+
+-- Stock: photos + free-form extra fields
+alter table public.stock add column if not exists photo_urls text[] default '{}';
+alter table public.stock add column if not exists custom_fields jsonb default '{}'::jsonb;
+
+-- Customers: photos + free-form extra fields
+alter table public.customers add column if not exists photo_urls text[] default '{}';
+alter table public.customers add column if not exists custom_fields jsonb default '{}'::jsonb;
+
+-- Manually-added columns, defined from the Settings screen.
+-- table_name is 'stock' or 'customers' (extend Settings' picker for more tables).
+create table if not exists public.custom_columns (
+  id          uuid primary key default gen_random_uuid(),
+  table_name  text not null,
+  key         text not null,
+  label_ur    text not null,
+  label_en    text not null,
+  sort_order  int not null default 0,
+  created_at  timestamptz not null default now(),
+  unique (table_name, key)
+);
+
+alter table public.custom_columns enable row level security;
+drop policy if exists "authenticated full access" on public.custom_columns;
+create policy "authenticated full access" on public.custom_columns
+  for all to authenticated using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+
+do $$ begin alter publication supabase_realtime add table public.custom_columns; exception when others then null; end $$;
+
+-- ── Storage bucket for product / stock photos ─────────────────────────
+insert into storage.buckets (id, name, public)
+values ('product-photos', 'product-photos', true)
+on conflict (id) do nothing;
+
+drop policy if exists "product photos: public read" on storage.objects;
+create policy "product photos: public read"
+  on storage.objects for select
+  using (bucket_id = 'product-photos');
+
+drop policy if exists "product photos: authenticated upload" on storage.objects;
+create policy "product photos: authenticated upload"
+  on storage.objects for insert
+  to authenticated
+  with check (bucket_id = 'product-photos');
+
+drop policy if exists "product photos: authenticated update" on storage.objects;
+create policy "product photos: authenticated update"
+  on storage.objects for update
+  to authenticated
+  using (bucket_id = 'product-photos');
+
+drop policy if exists "product photos: authenticated delete" on storage.objects;
+create policy "product photos: authenticated delete"
+  on storage.objects for delete
+  to authenticated
+  using (bucket_id = 'product-photos');

@@ -8,10 +8,12 @@ import Input from '../../components/ui/Input';
 import Select from '../../components/ui/Select';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import ExportImportBar from '../../components/ui/ExportImportBar';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useCustomers } from '../../hooks/useCustomers';
 import { useLedger, computeBalances } from '../../hooks/useLedger';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import { CUSTOMER_TYPES, optLabel, type Customer } from '../../types';
 import { fmtNum, num, toLatinDigits } from '../../utils/format';
 import { parseNumCell, type ImportConfig } from '../../import/importExcel';
@@ -24,6 +26,7 @@ export default function CustomersPage() {
   const navigate = useNavigate();
   const { rows: customers, loading, insert, update, remove } = useCustomers();
   const { rows: ledger, insert: insertEntry } = useLedger();
+  const { rows: customCols } = useCustomColumns('customers');
 
   const [tab, setTab] = useState<Tab>('all');
   const [q, setQ] = useState('');
@@ -38,6 +41,8 @@ export default function CustomersPage() {
   const [opening, setOpening] = useState('');
   const [notes, setNotes] = useState('');
   const [nameErr, setNameErr] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [customVals, setCustomVals] = useState<Record<string, string>>({});
 
   const balances = useMemo(() => computeBalances(customers, ledger), [customers, ledger]);
 
@@ -62,6 +67,8 @@ export default function CustomersPage() {
     setOpening('');
     setNotes('');
     setNameErr('');
+    setPhotos([]);
+    setCustomVals({});
     setModal({ open: true });
   };
 
@@ -73,6 +80,8 @@ export default function CustomersPage() {
     setOpening(c.opening_balance != null ? String(c.opening_balance) : '');
     setNotes(c.notes ?? '');
     setNameErr('');
+    setPhotos(c.photo_urls ?? []);
+    setCustomVals(c.custom_fields ?? {});
     setModal({ open: true, edit: c });
   };
 
@@ -89,7 +98,9 @@ export default function CustomersPage() {
       address_note: address.trim() || null,
       type,
       opening_balance: num(opening),
-      notes: notes.trim() || null
+      notes: notes.trim() || null,
+      photo_urls: photos.length ? photos : null,
+      custom_fields: Object.keys(customVals).length ? customVals : null
     };
     try {
       if (modal.edit) {
@@ -177,6 +188,18 @@ export default function CustomersPage() {
         loading={loading}
         rows={filtered}
         columns={[
+          {
+            key: 'photo',
+            label: t('photos.title'),
+            render: (c) =>
+              c.photo_urls && c.photo_urls.length > 0 ? (
+                <img src={c.photo_urls[0]} alt="" className="h-11 w-11 rounded-xl object-cover border-2 border-teal-200" />
+              ) : (
+                <span className="h-11 w-11 grid place-items-center rounded-xl bg-stone-100 text-stone-300">
+                  <Users className="h-5 w-5" />
+                </span>
+              )
+          },
           { key: 'name', label: t('common.name') },
           {
             key: 'phone',
@@ -218,7 +241,12 @@ export default function CustomersPage() {
                 </span>
               );
             }
-          }
+          },
+          ...customCols.map((cc) => ({
+            key: `custom_${cc.key}`,
+            label: isUr ? cc.label_ur : cc.label_en,
+            render: (c: Customer) => <span className={isUr ? 'font-urdu' : ''}>{c.custom_fields?.[cc.key] || '—'}</span>
+          }))
         ]}
         extraActions={(c) => (
           <button
@@ -292,6 +320,18 @@ export default function CustomersPage() {
           <div className="sm:col-span-2">
             <Input label={t('common.notes')} value={notes} onChange={setNotes} />
           </div>
+          {customCols.map((cc) => (
+            <Input
+              key={cc.id}
+              label={isUr ? cc.label_ur : cc.label_en}
+              value={customVals[cc.key] ?? ''}
+              onChange={(v) => setCustomVals((prev) => ({ ...prev, [cc.key]: v }))}
+            />
+          ))}
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-stone-100">
+          <PhotoUpload urls={photos} onChange={setPhotos} folder="customers" />
         </div>
       </Modal>
 

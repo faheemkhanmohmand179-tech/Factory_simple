@@ -126,6 +126,43 @@
   .font-urdu-safe {
     font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', serif;
   }
+
+  /* ── colorful bordered table ──────────────────────────────────── */
+  .table-colorful {
+    @apply border-separate;
+    border-spacing: 0;
+  }
+  .table-colorful thead th {
+    border-bottom: 3px solid rgba(255, 255, 255, 0.35);
+  }
+  .table-colorful thead th:not(:last-child) {
+    border-inline-end: 1px solid rgba(255, 255, 255, 0.25);
+  }
+  .table-colorful tbody td {
+    border-bottom: 1px solid #cffafe;
+  }
+  .table-colorful tbody td:not(:last-child) {
+    border-inline-end: 1px solid #ecfeff;
+  }
+  .table-colorful tbody tr:nth-child(4n+1) td { background-color: rgba(240, 253, 250, 0.9); }
+  .table-colorful tbody tr:nth-child(4n+2) td { background-color: rgba(255, 255, 255, 0.95); }
+  .table-colorful tbody tr:nth-child(4n+3) td { background-color: rgba(254, 249, 231, 0.7); }
+  .table-colorful tbody tr:nth-child(4n+4) td { background-color: rgba(255, 255, 255, 0.95); }
+  .table-colorful tbody tr:hover td {
+    background-color: rgba(45, 212, 191, 0.18) !important;
+  }
+
+  /* ── photo upload tiles ───────────────────────────────────────── */
+  .photo-tile {
+    @apply relative rounded-2xl overflow-hidden border-2 border-teal-200 bg-teal-50 shadow-md;
+    aspect-ratio: 1 / 1;
+  }
+  .photo-drop {
+    @apply flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-teal-300
+      bg-gradient-to-br from-teal-50 to-emerald-50 text-teal-600 font-bold text-xs text-center p-4
+      hover:from-teal-100 hover:to-emerald-100 transition cursor-pointer active:scale-[0.98];
+    aspect-ratio: 1 / 1;
+  }
 }
 
 /* ═════ Urdu typography helpers ═════════════════════════════════ */
@@ -242,12 +279,21 @@ html[lang='en'] .u-head-sm {
   border-radius: 999px;
 }
 .scroll-slim::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #0d9488, #059669, #ca8a04);
+  background: linear-gradient(180deg, #14b8a6 0%, #0d9488 35%, #059669 65%, #ca8a04 100%);
   border-radius: 999px;
   border: 2px solid #ecfdf5;
 }
 .scroll-slim::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #0f766e, #047857, #a16207);
+  background: linear-gradient(180deg, #2dd4bf 0%, #0f766e 35%, #047857 65%, #a16207 100%);
+}
+
+/* ── sidebar's own scrollbar — solid vivid gradient, always visible ── */
+aside nav.scroll-slim {
+  scrollbar-color: #2dd4bf transparent;
+}
+aside nav.scroll-slim::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5eead4 0%, #14b8a6 30%, #0d9488 60%, #ca8a04 100%);
+  border: 2px solid transparent;
 }
 
 /* ═════ Modal (above EVERYTHING) ════════════════════════════════ */

@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Download, MoonStar, Save, Settings as SettingsIcon, Smartphone } from 'lucide-react';
+import { Columns3, Download, MoonStar, Plus, Save, Settings as SettingsIcon, Smartphone, Trash2 } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import { supabase } from '../../lib/supabaseClient';
 import { toLatinDigits, todayStr } from '../../utils/format';
-import type { Lang, RateMode } from '../../types';
+import type { Lang, RateMode, CustomColumn } from '../../types';
 
 const TABLES = [
   'customers',
@@ -23,7 +25,8 @@ const TABLES = [
   'marble_sizes',
   'stock',
   'expenses',
-  'app_settings'
+  'app_settings',
+  'custom_columns'
 ];
 
 declare global {
@@ -40,6 +43,44 @@ export default function SettingsPage() {
   const [prefix, setPrefix] = useState(store.invoicePrefix);
   const [nextNo, setNextNo] = useState(String(store.nextInvoiceNo));
   const [installable, setInstallable] = useState(Boolean(window.__pwaInstallPrompt));
+
+  // ── custom (manually-added) columns ──
+  const [colTable, setColTable] = useState<'stock' | 'customers'>('stock');
+  const { rows: customCols, insert: insertCol, remove: removeCol } = useCustomColumns(colTable);
+  const [newColUr, setNewColUr] = useState('');
+  const [newColEn, setNewColEn] = useState('');
+  const [delCol, setDelCol] = useState<CustomColumn | null>(null);
+
+  const addColumn = async () => {
+    if (!newColUr.trim() && !newColEn.trim()) return;
+    try {
+      const key = `c_${Date.now().toString(36)}`;
+      await insertCol({
+        table_name: colTable,
+        key,
+        label_ur: newColUr.trim() || newColEn.trim(),
+        label_en: newColEn.trim() || newColUr.trim(),
+        sort_order: customCols.length
+      });
+      setNewColUr('');
+      setNewColEn('');
+      toast.success(t('settings.columnAdded'));
+    } catch {
+      toast.error(navigator.onLine ? t('toast.error') : t('toast.offline'));
+    }
+  };
+
+  const doDeleteColumn = async () => {
+    if (!delCol) return;
+    try {
+      await removeCol(delCol.id);
+      toast.success(t('settings.columnDeleted'));
+    } catch {
+      toast.error(t('toast.error'));
+    } finally {
+      setDelCol(null);
+    }
+  };
 
   // load server-side app_settings once and apply to local UI state
   useEffect(() => {
@@ -197,6 +238,56 @@ export default function SettingsPage() {
         </div>
       </section>
 
+      {/* custom columns */}
+      <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
+        <h2 className={`font-extrabold text-stone-800 flex items-center gap-2 ${isUr ? 'font-urdu u-text' : ''}`}>
+          <Columns3 className="h-5 w-5 text-teal-600" /> {t('settings.customColumns')}
+        </h2>
+        <p className={`text-sm text-stone-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.customColumnsHint')}</p>
+
+        <div className="flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={() => setColTable('stock')}
+            className={`btn btn-sm ${colTable === 'stock' ? 'btn-primary' : 'btn-outline'}`}
+          >
+            <span className={isUr ? 'font-urdu' : ''}>{t('stock.title')}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setColTable('customers')}
+            className={`btn btn-sm ${colTable === 'customers' ? 'btn-primary' : 'btn-outline'}`}
+          >
+            <span className={isUr ? 'font-urdu' : ''}>{t('customers.title')}</span>
+          </button>
+        </div>
+
+        {customCols.length === 0 ? (
+          <p className={`text-sm text-stone-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.noCustomColumns')}</p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {customCols.map((c) => (
+              <span key={c.id} className="chip chip-info gap-2">
+                <span className={isUr ? 'font-urdu' : ''}>{isUr ? c.label_ur : c.label_en}</span>
+                <button type="button" onClick={() => setDelCol(c)} className="hover:text-rose-600">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <Input label={t('settings.columnNameUr')} value={newColUr} onChange={setNewColUr} />
+          <Input label={t('settings.columnNameEn')} value={newColEn} onChange={setNewColEn} dir="ltr" />
+        </div>
+        <div>
+          <Button variant="primary" size="sm" icon={Plus} onClick={() => void addColumn()}>
+            <span className={isUr ? 'font-urdu' : ''}>{t('settings.addColumn')}</span>
+          </Button>
+        </div>
+      </section>
+
       {/* backup */}
       <section className="glass rounded-3xl shadow-glass p-5 space-y-3">
         <h2 className={`font-extrabold text-stone-800 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.backup')}</h2>
@@ -231,6 +322,15 @@ export default function SettingsPage() {
       <p className="text-center text-xs text-white/60 pb-2" dir="ltr">
         NEW ALMAKKA FACTORY · v1.0.0
       </p>
+
+      <ConfirmDialog
+        open={Boolean(delCol)}
+        title={t('common.confirmDeleteTitle')}
+        message={t('settings.columnDeleteConfirm')}
+        confirmLabel={t('common.delete')}
+        onConfirm={doDeleteColumn}
+        onClose={() => setDelCol(null)}
+      />
     </div>
   );
 }

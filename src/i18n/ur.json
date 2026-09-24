@@ -1,6 +1,5 @@
 {
   "app.name": "نیو المکہ فیکٹری",
-
   "common.save": "✔ محفوظ کریں",
   "common.dontSave": "✖ محفوظ نہ کریں",
   "common.cancel": "منسوخ",
@@ -53,7 +52,6 @@
   "common.confirmDeleteTitle": "حذف کی تصدیق",
   "common.offline": "آف لائن",
   "common.online": "آن لائن",
-
   "nav.dashboard": "ڈیش بورڈ",
   "nav.invoices": "بل",
   "nav.customers": "گاہک",
@@ -69,7 +67,6 @@
   "nav.settings": "سیٹنگز",
   "nav.more": "مزید",
   "nav.logout": "لاگ آؤٹ",
-
   "auth.title": "نیو المکہ فیکٹری",
   "auth.subtitle": "ماربل فیکٹری کا حساب کتاب — جاری رکھنے کے لیے لاگ اِن کریں",
   "auth.email": "ای میل",
@@ -79,7 +76,6 @@
   "auth.error": "ای میل یا پاس ورڈ غلط ہے",
   "auth.notConfigured": "Supabase ابھی جڑا نہیں",
   "auth.notConfiguredHint": "‏.env.example کو .env میں کاپی کر کے اپنا Supabase لنک اور کلید لگائیں، پھر ایپ دوبارہ چلائیں۔",
-
   "dashboard.todaysSales": "آج کی فروخت",
   "dashboard.monthSales": "اس ماہ کی فروخت",
   "dashboard.totalReceived": "کل وصول",
@@ -105,7 +101,6 @@
   "dashboard.noInvoices": "ابھی کوئی بل نہیں",
   "dashboard.noCustomers": "ابھی کوئی گاہک نہیں",
   "dashboard.noAbsent": "آج سب حاضر ہیں",
-
   "invoice.bill": "بل",
   "invoice.newTitle": "نیا بل",
   "invoice.editTitle": "بل میں تبدیلی",
@@ -148,7 +143,6 @@
   "invoice.noStock": "ابھی اسٹاک میں کچھ نہیں",
   "invoice.dateLabel": "تاریخ",
   "invoice.discardConfirm": "بل محفوظ نہیں ہے — بغیر محفوظ کیے نکل جائیں؟",
-
   "customers.title": "گاہک اور سپلائر",
   "customers.add": "گاہک شامل کریں",
   "customers.edit": "گاہک میں تبدیلی",
@@ -172,7 +166,6 @@
   "customers.saved": "گاہک محفوظ ہو گیا",
   "customers.deleted": "گاہک حذف ہو گیا",
   "customers.deleteConfirm": "کیا یہ گاہک اور اس کا پورا کھاتہ حذف کر دیا جائے؟ یہ واپس نہیں ہوگا۔",
-
   "ledger.title": "کھاتہ",
   "ledger.addEntry": "اندراج شامل کریں",
   "ledger.editEntry": "اندراج میں تبدیلی",
@@ -187,7 +180,6 @@
   "ledger.denaCard": "اس کو دینا ہے",
   "ledger.clearCard": "کچھ نہیں — نہ لینا نہ دینا",
   "ledger.noEntries": "ابھی کوئی اندراج نہیں",
-
   "labour.title": "لیبر",
   "labour.add": "لیبر شامل کریں",
   "labour.edit": "لیبر میں تبدیلی",
@@ -201,7 +193,6 @@
   "labour.tabAttendance": "حاضری",
   "labour.tabReports": "رپورٹس",
   "labour.customCategory": "اپنی کیٹیگری لکھیں",
-
   "attendance.title": "حاضری",
   "attendance.present": "حاضر",
   "attendance.absent": "غیر حاضر",
@@ -214,7 +205,6 @@
   "attendance.savedAuto": "محفوظ ہو گیا",
   "attendance.summary": "خلاصہ",
   "attendance.noActiveLabour": "کوئی فعال لیبر نہیں — پہلے لیبر شامل کریں",
-
   "labourReport.title": "لیبر رپورٹ",
   "labourReport.daily": "روزانہ",
   "labourReport.weekly": "ہفتہ وار",
@@ -235,7 +225,6 @@
   "labourReport.paymentSaved": "اجرت کی ادائیگی محفوظ ہو گئی",
   "labourReport.noData": "اس مدت میں کوئی ڈیٹا نہیں",
   "labourReport.range": "تاریخ کی مدت",
-
   "machinery.title": "مشینیں",
   "machinery.add": "مشین شامل کریں",
   "machinery.edit": "مشین میں تبدیلی",
@@ -261,7 +250,6 @@
   "machinery.listView": "ٹیبل",
   "machinery.noMachines": "ابھی کوئی مشین نہیں",
   "machinery.noLogs": "ابھی کوئی مرمت ریکارڈ نہیں",
-
   "marbleTypes.title": "ماربل کی اقسام",
   "marbleTypes.add": "قسم شامل کریں",
   "marbleTypes.edit": "قسم میں تبدیلی",
@@ -275,7 +263,6 @@
   "marbleTypes.deleted": "ماربل قسم حذف ہو گئی",
   "marbleTypes.deleteConfirm": "کیا یہ ماربل قسم حذف کر دی جائے؟",
   "marbleTypes.noTypes": "ابھی کوئی ماربل قسم نہیں",
-
   "marbleSizes.title": "ماربل کے سائز",
   "marbleSizes.add": "+ نیا سائز",
   "marbleSizes.edit": "سائز میں تبدیلی",
@@ -287,7 +274,6 @@
   "marbleSizes.saved": "سائز محفوظ ہو گیا",
   "marbleSizes.deleted": "سائز حذف ہو گیا",
   "marbleSizes.deleteConfirm": "کیا یہ سائز حذف کر دیا جائے؟",
-
   "stock.title": "اسٹاک",
   "stock.add": "اسٹاک شامل کریں",
   "stock.edit": "اسٹاک میں تبدیلی",
@@ -304,7 +290,6 @@
   "stock.deleted": "اسٹاک حذف ہو گیا",
   "stock.deleteConfirm": "کیا یہ اسٹاک حذف کر دیا جائے؟",
   "stock.noStock": "ابھی اسٹاک میں کچھ نہیں",
-
   "expenses.title": "خرچے",
   "expenses.add": "خرچہ شامل کریں",
   "expenses.edit": "خرچہ میں تبدیلی",
@@ -317,7 +302,6 @@
   "expenses.deleted": "خرچہ حذف ہو گیا",
   "expenses.deleteConfirm": "کیا یہ خرچہ حذف کر دیا جائے؟",
   "expenses.noExpenses": "ابھی کوئی خرچہ نہیں",
-
   "reports.title": "رپورٹس",
   "reports.daily": "روزانہ",
   "reports.weekly": "ہفتہ وار",
@@ -335,7 +319,6 @@
   "reports.printReport": "رپورٹ پرنٹ کریں",
   "reports.noData": "اس مدت میں کوئی ڈیٹا نہیں",
   "reports.rangeLabel": "تاریخ کی مدت",
-
   "settings.title": "سیٹنگز",
   "settings.language": "زبان",
   "settings.urdu": "اردو",
@@ -357,14 +340,12 @@
   "settings.saved": "سیٹنگز محفوظ ہو گئیں",
   "settings.logoutBtn": "لاگ آؤٹ",
   "settings.logoutConfirm": "کیا ایپ سے لاگ آؤٹ کرنا ہے؟",
-
   "exportbar.pdf": "پی ڈی ایف",
   "exportbar.wa": "واٹس ایپ",
   "exportbar.excel": "ایکسل",
   "exportbar.word": "ورڈ",
   "exportbar.csv": "سی ایس وی",
   "exportbar.importBtn": "درآمد",
-
   "import.title": "درآمد",
   "import.downloadTemplate": "نمونہ فائل ڈاؤن لوڈ کریں",
   "import.chooseFile": "فائل منتخب کریں",
@@ -385,22 +366,33 @@
   "import.emptyFile": "اس فائل میں کوئی قطار نہیں",
   "import.summaryLine": "{{ok}} قطاریں درست، {{bad}} میں مسئلہ ہے",
   "import.dupQuestion": "{{n}} ڈپلیکٹ ریکارڈ ملے — انہیں چھوڑ دیں یا اپ ڈیٹ کریں؟",
-
   "toast.saved": "کامیابی سے محفوظ ہو گیا",
   "toast.deleted": "حذف ہو گیا",
   "toast.discarded": "تبدیلیاں محفوظ نہیں کی گئیں",
   "toast.error": "کچھ غلط ہو گیا",
   "toast.offline": "انٹرنیٹ بند ہے — محفوظ کرنے کے لیے انٹرنیٹ درکار ہے",
-
   "sw.updateAvailable": "نیا ورژن دستیاب ہے — اپ ڈیٹ کریں؟",
   "sw.reload": "دوبارہ لوڈ کریں",
-
   "offline.banner": "انٹرنیٹ بند ہے — محفوظ کرنے کے لیے انٹرنیٹ درکار ہے",
-
   "validation.nameEmpty": "نام خالی ہے",
   "validation.amountEmpty": "رقم خالی ہے",
   "validation.dateInvalid": "تاریخ درست نہیں",
   "validation.numberInvalid": "نمبر درست نہیں",
   "validation.notFound": "لسٹ میں نہیں ملا",
-  "validation.required": "یہ خانہ ضروری ہے"
+  "validation.required": "یہ خانہ ضروری ہے",
+  "photos.title": "تصاویر",
+  "photos.add": "تصویر شامل کریں",
+  "photos.uploading": "اپلوڈ ہو رہی ہے...",
+  "photos.uploaded": "تصویر محفوظ ہو گئی",
+  "photos.uploadError": "تصویر اپلوڈ نہیں ہو سکی",
+  "photos.limitReached": "زیادہ سے زیادہ حد پوری ہو گئی",
+  "settings.customColumns": "اضافی کالم (اسٹاک)",
+  "settings.customColumnsHint": "اسٹاک کے لیے اپنی مرضی کے نئے کالم شامل کریں، ہر کالم کا نام اردو اور انگریزی میں لکھیں",
+  "settings.addColumn": "نیا کالم شامل کریں",
+  "settings.columnNameUr": "کالم کا نام (اردو)",
+  "settings.columnNameEn": "کالم کا نام (انگریزی)",
+  "settings.noCustomColumns": "ابھی کوئی اضافی کالم نہیں",
+  "settings.columnAdded": "کالم شامل ہو گیا",
+  "settings.columnDeleted": "کالم حذف ہو گیا",
+  "settings.columnDeleteConfirm": "کیا یہ کالم اور اس کی تمام قدریں حذف کر دی جائیں؟"
 }
