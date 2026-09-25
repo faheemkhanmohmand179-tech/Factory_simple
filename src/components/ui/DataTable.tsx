@@ -60,11 +60,11 @@ export default function DataTable<T = Record<string, unknown>>({
       <div className="overflow-x-auto scroll-slim">
         <table className={`w-full min-w-[720px] text-sm table-colorful ${isUr ? 'urdu-table' : ''}`}>
           <thead>
-            <tr className="text-white" style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}>
+            <tr className="text-white">
               {columns.map((c) => (
                 <th
                   key={c.key}
-                  className={`sticky top-0 z-[5] px-4 py-3.5 font-bold text-start whitespace-nowrap ${
+                  className={`sticky top-0 z-[5] px-4 font-bold text-start whitespace-nowrap thead-cell ${
                     isUr ? 'font-urdu u-head-sm' : ''
                   } ${c.align === 'right' ? 'text-end' : c.align === 'center' ? 'text-center' : ''}`}
                   style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}
@@ -74,7 +74,7 @@ export default function DataTable<T = Record<string, unknown>>({
               ))}
               {hasActions && (
                 <th
-                  className="sticky top-0 z-[5] px-4 py-3.5 font-bold text-center whitespace-nowrap"
+                  className="sticky top-0 z-[5] px-4 font-bold text-center whitespace-nowrap thead-cell"
                   style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}
                 >
                   {t('common.actions')}
@@ -106,7 +106,7 @@ export default function DataTable<T = Record<string, unknown>>({
                     {columns.map((c) => (
                       <td
                         key={c.key}
-                        className={`px-4 py-3 text-stone-700 ${isUr && !c.render ? 'font-urdu u-text' : ''} ${c.align === 'right' ? 'text-end tabular-nums' : c.align === 'center' ? 'text-center' : ''} ${c.className ?? ''}`}
+                        className={`px-4 tbody-cell text-stone-700 ${isUr && !c.render ? 'font-urdu u-text' : ''} ${c.align === 'right' ? 'text-end tabular-nums' : c.align === 'center' ? 'text-center' : ''} ${c.className ?? ''}`}
                       >
                         {c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key] ?? '-')}
                       </td>

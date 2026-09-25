@@ -54,7 +54,7 @@ export default function Button({
   return (
     <button type="button" className={cls} disabled={disabled || loading} {...rest}>
       {loading ? <Loader2 className="h-5 w-5 shrink-0 animate-spin" /> : Icon ? <Icon className="h-5 w-5 shrink-0" /> : null}
-      {children ? <span className="truncate">{children}</span> : null}
+      {children ? <span className="btn-label">{children}</span> : null}
     </button>
   );
 }
