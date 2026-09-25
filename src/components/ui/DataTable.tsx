@@ -58,13 +58,13 @@ export default function DataTable<T = Record<string, unknown>>({
       </div>
 
       <div className="overflow-x-auto scroll-slim">
-        <table className={`w-full min-w-[720px] text-sm table-colorful ${isUr ? 'urdu-table' : ''}`}>
+        <table className={`w-full min-w-[600px] sm:min-w-[720px] text-[13px] sm:text-sm table-colorful ${isUr ? 'urdu-table' : ''}`}>
           <thead>
             <tr className="text-white" style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}>
               {columns.map((c) => (
                 <th
                   key={c.key}
-                  className={`sticky top-0 z-[5] px-4 py-3.5 font-bold text-start whitespace-nowrap ${
+                  className={`sticky top-0 z-[5] px-3 sm:px-4 py-3 sm:py-3.5 font-bold text-start whitespace-nowrap ${
                     isUr ? 'font-urdu u-head-sm' : ''
                   } ${c.align === 'right' ? 'text-end' : c.align === 'center' ? 'text-center' : ''}`}
                   style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}
@@ -74,7 +74,7 @@ export default function DataTable<T = Record<string, unknown>>({
               ))}
               {hasActions && (
                 <th
-                  className="sticky top-0 z-[5] px-4 py-3.5 font-bold text-center whitespace-nowrap"
+                  className="sticky top-0 z-[5] px-3 sm:px-4 py-3 sm:py-3.5 font-bold text-center whitespace-nowrap"
                   style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}
                 >
                   {t('common.actions')}
@@ -106,13 +106,13 @@ export default function DataTable<T = Record<string, unknown>>({
                     {columns.map((c) => (
                       <td
                         key={c.key}
-                        className={`px-4 py-3 text-stone-700 ${isUr && !c.render ? 'font-urdu u-text' : ''} ${c.align === 'right' ? 'text-end tabular-nums' : c.align === 'center' ? 'text-center' : ''} ${c.className ?? ''}`}
+                        className={`px-3 sm:px-4 py-2.5 sm:py-3 text-stone-700 ${isUr && !c.render ? 'font-urdu u-text' : ''} ${c.align === 'right' ? 'text-end tabular-nums' : c.align === 'center' ? 'text-center' : ''} ${c.className ?? ''}`}
                       >
                         {c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key] ?? '-')}
                       </td>
                     ))}
                     {hasActions && (
-                      <td className="px-4 py-2">
+                      <td className="px-2.5 sm:px-4 py-2">
                         <div className="flex items-center justify-center gap-1.5">
                           {extraActions?.(row)}
                           {onEdit && (

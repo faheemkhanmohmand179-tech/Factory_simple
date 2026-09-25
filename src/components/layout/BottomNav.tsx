@@ -60,7 +60,7 @@ export default function BottomNav() {
               to={path}
               end={end}
               className={({ isActive }) =>
-                `flex flex-col items-center justify-center gap-0.5 h-16 text-[10px] font-extrabold transition ${
+                `flex flex-col items-center justify-center gap-0.5 min-h-[4.75rem] py-1.5 text-[10px] font-extrabold transition ${
                   isActive ? 'text-white' : 'text-white/60'
                 }`
               }
@@ -70,7 +70,7 @@ export default function BottomNav() {
                   <span className={`h-9 w-14 rounded-2xl grid place-items-center transition ${isActive ? 'bg-white/25' : ''}`}>
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className={`leading-none ${isUr ? 'font-urdu' : ''}`}>{t(`nav.${key}`)}</span>
+                  <span className={`bottomnav-label leading-tight ${isUr ? 'font-urdu' : ''}`}>{t(`nav.${key}`)}</span>
                 </>
               )}
             </NavLink>
@@ -78,14 +78,14 @@ export default function BottomNav() {
           <button
             type="button"
             onClick={() => setMoreOpen((v) => !v)}
-            className={`flex flex-col items-center justify-center gap-0.5 h-16 text-[10px] font-extrabold transition ${
+            className={`flex flex-col items-center justify-center gap-0.5 min-h-[4.75rem] py-1.5 text-[10px] font-extrabold transition ${
               moreOpen ? 'text-white' : 'text-white/60'
             }`}
           >
             <span className={`h-9 w-14 rounded-2xl grid place-items-center transition ${moreOpen ? 'bg-white/25' : ''}`}>
               {moreOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </span>
-            <span className={`leading-none ${isUr ? 'font-urdu' : ''}`}>{t('nav.more')}</span>
+            <span className={`bottomnav-label leading-tight ${isUr ? 'font-urdu' : ''}`}>{t('nav.more')}</span>
           </button>
         </div>
       </nav>
@@ -117,7 +117,7 @@ export default function BottomNav() {
                   }
                 >
                   <Icon className="h-7 w-7" />
-                  <span className={`text-center leading-snug ${isUr ? 'font-urdu' : ''}`}>{t(`nav.${key}`)}</span>
+                  <span className={`text-center leading-normal ${isUr ? 'font-urdu u-text' : ''}`}>{t(`nav.${key}`)}</span>
                 </NavLink>
               ))}
             </div>

@@ -60,8 +60,17 @@ export default function PhotoUpload({
       }
       onChange([...urls, ...uploaded]);
       toast.success(t('photos.uploaded'));
-    } catch {
-      toast.error(navigator.onLine ? t('photos.uploadError') : t('toast.offline'));
+    } catch (err) {
+      const msg = String((err as Error)?.message ?? '').toLowerCase();
+      // bucket not created yet → tell the user exactly which SQL file to run
+      if (msg.includes('bucket') || msg.includes('not found')) {
+        toast.error(`${t('photos.uploadError')} — ${t('photos.bucketMissing')}`);
+      } else if (!navigator.onLine) {
+        toast.error(t('toast.offline'));
+      } else {
+        toast.error(t('photos.uploadError'));
+      }
+      console.error('[photos] upload failed:', (err as Error)?.message);
     } finally {
       setUploading(false);
     }

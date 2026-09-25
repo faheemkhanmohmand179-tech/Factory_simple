@@ -64,7 +64,7 @@
     @apply px-6 py-4 text-base rounded-xl;
     min-height: 56px;
   }
-  /* ── SOLID vivid gradients (3-stop + gloss highlight + colored ring) ── */
+  /* ── SOLID vivid gradients (3-stop + gloss highlight + colored glow) ── */
   .btn-primary,
   .btn-success,
   .btn-danger,
@@ -82,28 +82,28 @@
       inset 0 -2px 0 rgba(0, 0, 0, 0.12),
       0 8px 18px -6px rgba(6, 78, 59, 0.45);
   }
-  .btn-primary   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0f766e 0%, #059669 45%, #65a30d 100%); }
+  .btn-primary   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0f766e 0%, #059669 45%, #65a30d 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(5, 150, 105, .55); }
   .btn-primary:hover { background-image: linear-gradient(135deg, #0d9488 0%, #10b981 45%, #84cc16 100%); }
-  .btn-success   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #059669 0%, #22c55e 50%, #a3e635 100%); }
+  .btn-success   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #047857 0%, #22c55e 50%, #a3e635 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(34, 197, 94, .55); }
   .btn-success:hover { background-image: linear-gradient(135deg, #10b981 0%, #34d399 50%, #bef264 100%); }
-  .btn-danger    { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #e11d48 0%, #ef4444 55%, #f97316 100%); }
+  .btn-danger    { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #be123c 0%, #ef4444 55%, #f97316 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(225, 29, 72, .55); }
   .btn-danger:hover { background-image: linear-gradient(135deg, #f43f5e 0%, #f87171 55%, #fb923c 100%); }
-  .btn-warning   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%); }
-  .btn-warning:hover { background-image: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fcd34d 100%); }
-  .btn-info      { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0e7490 0%, #0891b2 50%, #14b8a6 100%); }
-  .btn-info:hover { background-image: linear-gradient(135deg, #06b6d4 0%, #22d3ee 50%, #2dd4bf 100%); }
-  .btn-pdf       { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #b91c1c 0%, #e11d48 55%, #f43f5e 100%); }
-  .btn-pdf:hover { background-image: linear-gradient(135deg, #dc2626 0%, #f43f5e 55%, #fb7185 100%); }
-  .btn-whatsapp  { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #22c55e 100%); }
-  .btn-whatsapp:hover { background-image: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%); }
-  .btn-excel     { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #047857 0%, #16a34a 55%, #84cc16 100%); }
-  .btn-excel:hover { background-image: linear-gradient(135deg, #059669 0%, #22c55e 55%, #a3e635 100%); }
-  .btn-word      { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0369a1 0%, #0891b2 55%, #0d9488 100%); }
-  .btn-word:hover { background-image: linear-gradient(135deg, #0284c7 0%, #06b6d4 55%, #14b8a6 100%); }
-  .btn-csv       { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #57534e 0%, #78716c 55%, #a8a29e 100%); }
-  .btn-csv:hover { background-image: linear-gradient(135deg, #6b7280 0%, #8b8378 55%, #b8b0a8 100%); }
-  .btn-import    { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #b45309 0%, #f59e0b 55%, #facc15 100%); }
-  .btn-import:hover { background-image: linear-gradient(135deg, #d97706 0%, #fbbf24 55%, #fde047 100%); }
+  .btn-warning   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #fde047 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(245, 158, 11, .55); }
+  .btn-warning:hover { background-image: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fef08a 100%); }
+  .btn-info      { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0e7490 0%, #0891b2 50%, #22d3ee 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(8, 145, 178, .55); }
+  .btn-info:hover { background-image: linear-gradient(135deg, #06b6d4 0%, #22d3ee 50%, #a5f3fc 100%); }
+  .btn-pdf       { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #9f1239 0%, #e11d48 50%, #fb7185 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(190, 18, 60, .6); }
+  .btn-pdf:hover { background-image: linear-gradient(135deg, #dc2626 0%, #f43f5e 55%, #fda4af 100%); }
+  .btn-whatsapp  { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #166534 0%, #16a34a 50%, #4ade80 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(22, 163, 74, .55); }
+  .btn-whatsapp:hover { background-image: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #86efac 100%); }
+  .btn-excel     { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #14532d 0%, #16a34a 50%, #a3e635 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(22, 163, 74, .6); }
+  .btn-excel:hover { background-image: linear-gradient(135deg, #059669 0%, #22c55e 55%, #d9f99d 100%); }
+  .btn-word      { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #38bdf8 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(37, 99, 235, .55); }
+  .btn-word:hover { background-image: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 55%, #7dd3fc 100%); }
+  .btn-csv       { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #a78bfa 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(124, 58, 237, .55); }
+  .btn-csv:hover { background-image: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 55%, #c4b5fd 100%); }
+  .btn-import    { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #9a3412 0%, #f97316 50%, #fde047 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 0 rgba(0,0,0,.12), 0 8px 20px -6px rgba(249, 115, 22, .55); }
+  .btn-import:hover { background-image: linear-gradient(135deg, #ea580c 0%, #fb923c 55%, #fef08a 100%); }
   .btn-neutral   { @apply bg-gradient-to-r from-stone-200 to-stone-300 text-stone-800 hover:from-stone-100 hover:to-stone-200 shadow-stone-300/40; }
   .btn-outline   { @apply border-2 border-teal-400 bg-white/85 text-teal-700 hover:bg-teal-50 shadow-md shadow-teal-500/20 rounded-lg; }
   .btn-ghost     { @apply bg-stone-100 text-stone-700 hover:bg-stone-200 shadow-none rounded-lg; }
@@ -136,10 +136,20 @@
     min-height: 34px;
   }
   html[lang='ur'] .chip {
-    min-height: 42px;
-    padding-top: 0.45em;
-    line-height: 1.9;
+    min-height: 44px;
+    padding-top: 0.5em;
+    padding-bottom: 0.15em;
+    line-height: 2;
     overflow: visible;
+  }
+  /* period chips used on the chart selectors — solid vivid gradient ring */
+  .chip-period {
+    @apply text-white border-white/50;
+    background-image: linear-gradient(135deg, rgba(13, 148, 136, 0.55), rgba(5, 150, 105, 0.45), rgba(202, 138, 4, 0.4));
+  }
+  .chip-period.chip-active {
+    background-image: linear-gradient(135deg, #0d9488 0%, #059669 55%, #ca8a04 130%);
+    @apply text-white border-white shadow-lg;
   }
   .chip-active {
     @apply text-teal-700 border-white shadow-md;
@@ -158,49 +168,80 @@
     @apply bg-gradient-to-r from-teal-900/70 via-emerald-800/60 to-stone-800/50 backdrop-blur-xl shadow-xl;
   }
 
-  /* ── urdu table cells (spec §8: padding 14px 12px, line-height 2) ── */
-  html[lang='ur'] .urdu-table th,
+  /* ── urdu table cells (spec §8: tall cells so Nastaliq is never cut) ── */
+  html[lang='ur'] .urdu-table th {
+    padding: 16px 12px;
+    line-height: 2.2;
+  }
   html[lang='ur'] .urdu-table td {
-    padding: 14px 12px;
-    line-height: 2;
+    padding: 15px 12px;
+    line-height: 2.15;
+  }
+  /* urdu dropdown <option> text needs the taller metrics as well */
+  html[lang='ur'] select option {
+    line-height: 1.9;
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
 
   .font-urdu-safe {
     font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', serif;
   }
 
-  /* ── COLORFUL bordered table — rainbow frame + colored cell borders ── */
+  /* ── COLORFUL bordered table — 5-stop rainbow frame + per-column
+       colored inner borders + pastel zebra cycle so it looks vivid ── */
   .table-colorful {
     @apply border-separate;
     border-spacing: 0;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     border-radius: 14px;
     background:
       linear-gradient(#fff, #fff) padding-box,
-      linear-gradient(120deg, #0d9488, #10b981, #f59e0b, #14b8a6) border-box;
+      linear-gradient(120deg, #0d9488, #22c55e, #eab308, #f97316, #8b5cf6, #0d9488) border-box;
   }
   .table-colorful thead th {
-    border-bottom: 3px solid #fbbf24;
+    border-bottom: 4px solid #fbbf24;
   }
   .table-colorful thead th:not(:last-child) {
-    border-inline-end: 2px solid rgba(255, 255, 255, 0.35);
+    border-inline-end: 2px solid rgba(255, 255, 255, 0.45);
   }
+  /* every 3rd header column gets a warm accent underline */
+  .table-colorful thead th:nth-child(3n) {
+    border-bottom-color: #f472b6;
+  }
+  .table-colorful thead th:nth-child(3n+2) {
+    border-bottom-color: #4ade80;
+  }
+  /* body cells: vertical separators cycle teal → violet → amber */
   .table-colorful tbody td {
-    border-bottom: 2px solid #99f6e4;
+    border-bottom: 2px solid #5eead4;
   }
   .table-colorful tbody td:not(:last-child) {
-    border-inline-end: 2px solid #ccfbf1;
+    border-inline-end: 2px solid #99f6e4;
   }
-  .table-colorful tbody tr:nth-child(4n+1) td { background-color: rgba(240, 253, 250, 0.95); }
+  .table-colorful tbody td:nth-child(3n):not(:last-child) {
+    border-inline-end: 2px solid #ddd6fe;
+  }
+  .table-colorful tbody td:nth-child(3n+2):not(:last-child) {
+    border-inline-end: 2px solid #fde68a;
+  }
+  .table-colorful tbody td:nth-child(3n) {
+    border-bottom-color: #c4b5fd;
+  }
+  .table-colorful tbody td:nth-child(3n+2) {
+    border-bottom-color: #fcd34d;
+  }
+  /* 4-color pastel zebra: teal mist · white · amber mist · rose mist */
+  .table-colorful tbody tr:nth-child(4n+1) td { background-color: rgba(204, 251, 241, 0.95); }
   .table-colorful tbody tr:nth-child(4n+2) td { background-color: rgba(255, 255, 255, 0.98); }
-  .table-colorful tbody tr:nth-child(4n+3) td { background-color: rgba(254, 252, 232, 0.9); }
-  .table-colorful tbody tr:nth-child(4n+4) td { background-color: rgba(255, 255, 255, 0.98); }
+  .table-colorful tbody tr:nth-child(4n+3) td { background-color: rgba(254, 249, 195, 0.92); }
+  .table-colorful tbody tr:nth-child(4n+4) td { background-color: rgba(254, 231, 242, 0.9); }
   .table-colorful tbody tr:hover td {
-    background-color: rgba(45, 212, 191, 0.22) !important;
+    background-image: linear-gradient(135deg, rgba(45, 212, 191, 0.35), rgba(251, 191, 36, 0.28));
   }
   .table-colorful tfoot td {
-    border-top: 3px solid #fbbf24;
-    background-color: rgba(254, 249, 195, 0.8);
+    border-top: 4px solid #fbbf24;
+    background-color: rgba(254, 249, 195, 0.85);
   }
   /* photo thumbs inside tables never look squashed */
   .table-colorful td img {
@@ -269,7 +310,31 @@ html[lang='ur'] .u-head {
 html[lang='ur'] label span,
 html[lang='ur'] .text-xs.font-urdu,
 html[lang='ur'] .text-sm.font-urdu {
+  line-height: 2.05;
+}
+/* ── bottom-nav labels: Nastaliq needs the full 2.1em box, never clipped ── */
+html[lang='ur'] .bottomnav-label {
+  line-height: 2.1;
+  padding-top: 0.4em;
+  padding-bottom: 0.1em;
+  overflow: visible;
+  white-space: nowrap;
+}
+/* ── sidebar items: let Urdu rows grow instead of fixed 48px ── */
+html[lang='ur'] .sidebar-item {
+  min-height: 3.6rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  line-height: 2.05;
+}
+html[lang='ur'] .sidebar-item .font-urdu {
+  white-space: normal;
+  line-height: 2.05;
+}
+/* toast messages in Urdu also get head-room */
+html[lang='ur'] .toast-item span.leading-snug {
   line-height: 2;
+  padding-top: 0.35em;
 }
 /* English mode keeps compact metrics */
 html[lang='en'] .u-text,
@@ -435,11 +500,16 @@ aside nav.scroll-slim::-webkit-scrollbar-thumb {
   pointer-events: auto;
   width: 100%;
   max-height: 92vh;
+  max-height: 92dvh; /* mobile browsers: correct viewport height with URL bar */
   overflow-y: auto;
   overscroll-behavior: contain; /* page behind never scrolls by accident */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   background: #ffffff;
-  border: 2px solid #99f6e4;
+  border: 3px solid transparent;
   border-radius: 1rem 1rem 0 0;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(120deg, #0d9488, #f59e0b, #8b5cf6, #0d9488) border-box;
   box-shadow: 0 40px 90px -20px rgba(6, 78, 59, 0.5);
   animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

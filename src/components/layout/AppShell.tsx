@@ -25,6 +25,8 @@ export default function AppShell() {
     document.documentElement.dir = isUr ? 'rtl' : 'ltr';
     const key = location.pathname === '/' ? 'dashboard' : location.pathname.split('/')[1];
     setActiveModule(key);
+    // a tapped tab opens its content at the TOP of the page
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, [location.pathname, lang, isUr, setActiveModule]);
 
   useEffect(() => {

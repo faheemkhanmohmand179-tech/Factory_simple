@@ -29,8 +29,24 @@ export default function ReportsPage() {
   const { rows: expenses } = useExpenses();
 
   const [mode, setMode] = useState<Mode>('monthly');
-  const [from, setFrom] = useState(dayjs().startOf('month').format('YYYY-MM-DD'));
+  // default range: January 1st of the current year → today (reports start at جنوری)
+  const [from, setFrom] = useState(dayjs().startOf('year').format('YYYY-MM-DD'));
   const [to, setTo] = useState(todayStr());
+
+  /** quick range presets: 3 months · 6 months · 1 year (January → December) */
+  const applyPreset = (kind: 'm3' | 'm6' | 'y') => {
+    const today = dayjs();
+    if (kind === 'm3') {
+      setFrom(today.subtract(2, 'month').startOf('month').format('YYYY-MM-DD'));
+      setTo(today.format('YYYY-MM-DD'));
+    } else if (kind === 'm6') {
+      setFrom(today.subtract(5, 'month').startOf('month').format('YYYY-MM-DD'));
+      setTo(today.format('YYYY-MM-DD'));
+    } else {
+      setFrom(today.startOf('year').format('YYYY-MM-DD'));
+      setTo(today.endOf('year').format('YYYY-MM-DD'));
+    }
+  };
 
   const buckets = useMemo<Bucket[]>(() => {
     const map = new Map<string, Bucket>();
@@ -140,16 +156,30 @@ export default function ReportsPage() {
               <span className={isUr ? 'font-urdu' : ''}>{m.label}</span>
             </button>
           ))}
-          <div className="w-40">
-            <Input label={t('common.from')} type="date" dir="ltr" value={from} onChange={setFrom} />
-          </div>
-          <div className="w-40">
-            <Input label={t('common.to')} type="date" dir="ltr" value={to} onChange={setTo} />
-          </div>
-          <Button variant="info" size="sm" icon={Printer} onClick={doPrint}>
-            {t('reports.printReport')}
-          </Button>
         </div>
+      </div>
+
+      {/* quick presets + custom range */}
+      <div className="glass rounded-3xl shadow-glass p-4 sm:p-5 mb-4 flex flex-wrap items-end gap-2.5">
+        <button type="button" className="chip chip-period" onClick={() => applyPreset('m3')}>
+          <span className={isUr ? 'font-urdu' : ''}>{t('reports.p3m')}</span>
+        </button>
+        <button type="button" className="chip chip-period" onClick={() => applyPreset('m6')}>
+          <span className={isUr ? 'font-urdu' : ''}>{t('reports.p6m')}</span>
+        </button>
+        <button type="button" className="chip chip-period" onClick={() => applyPreset('y')}>
+          <span className={isUr ? 'font-urdu' : ''}>{t('reports.p1y')}</span>
+        </button>
+        <div className="flex-1" />
+        <div className="w-40">
+          <Input label={t('common.from')} type="date" dir="ltr" value={from} onChange={setFrom} />
+        </div>
+        <div className="w-40">
+          <Input label={t('common.to')} type="date" dir="ltr" value={to} onChange={setTo} />
+        </div>
+        <Button variant="info" size="sm" icon={Printer} onClick={doPrint}>
+          {t('reports.printReport')}
+        </Button>
       </div>
 
       {buckets.length === 0 ? (

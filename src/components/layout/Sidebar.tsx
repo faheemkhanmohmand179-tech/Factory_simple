@@ -53,7 +53,7 @@ export default function Sidebar() {
             end={path === '/'}
             title={t(`nav.${key}`)}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-2xl px-3 h-12 font-bold text-sm transition active:scale-[0.98] ${
+              `sidebar-item flex items-center gap-3 rounded-2xl px-3 min-h-12 py-1.5 font-bold text-sm transition active:scale-[0.98] ${
                 isActive
                   ? 'bg-white text-emerald-700 shadow-lg'
                   : 'text-white/90 hover:bg-white/20'
@@ -72,7 +72,7 @@ export default function Sidebar() {
         </div>
         {!collapsed && (
           <div className="min-w-0">
-            <div className="font-urdu text-white font-bold text-sm truncate">المکہ فیکٹری</div>
+            <div className="font-urdu text-white font-bold text-sm truncate u-head-sm">المکہ فیکٹری</div>
             <div className="text-[10px] text-white/70 font-bold tracking-widest" dir="ltr">ALMAKKA</div>
           </div>
         )}
