@@ -56,19 +56,6 @@
     padding-top: 0.35em;
     overflow: visible;
   }
-  .btn-label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%;
-  }
-  html[lang='ur'] .btn-label {
-    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', serif;
-    padding-top: 0.4em;
-    line-height: 1.9;
-    overflow: visible;
-    white-space: normal;
-  }
   .btn-sm {
     @apply px-3 py-2 text-xs rounded-md;
     min-height: 44px;
@@ -178,27 +165,6 @@
     line-height: 2;
   }
 
-  /* ── table header/body cell height: generous room so Nastaliq never clips ── */
-  .thead-cell {
-    padding-top: 1.05rem;
-    padding-bottom: 1.05rem;
-    line-height: 1.5;
-  }
-  html[lang='ur'] .thead-cell {
-    padding-top: 1.35rem;
-    padding-bottom: 0.85rem;
-    line-height: 2.3;
-  }
-  .tbody-cell {
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
-  }
-  html[lang='ur'] .tbody-cell {
-    padding-top: 1.15rem;
-    padding-bottom: 0.65rem;
-    line-height: 2.1;
-  }
-
   .font-urdu-safe {
     font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', serif;
   }
@@ -225,16 +191,12 @@
   .table-colorful tbody td:not(:last-child) {
     border-inline-end: 2px solid #ccfbf1;
   }
-  .table-colorful tbody tr:nth-child(4n+1) td { background-color: rgba(204, 251, 241, 0.65); }
+  .table-colorful tbody tr:nth-child(4n+1) td { background-color: rgba(240, 253, 250, 0.95); }
   .table-colorful tbody tr:nth-child(4n+2) td { background-color: rgba(255, 255, 255, 0.98); }
-  .table-colorful tbody tr:nth-child(4n+3) td { background-color: rgba(254, 240, 138, 0.28); }
+  .table-colorful tbody tr:nth-child(4n+3) td { background-color: rgba(254, 252, 232, 0.9); }
   .table-colorful tbody tr:nth-child(4n+4) td { background-color: rgba(255, 255, 255, 0.98); }
   .table-colorful tbody tr:hover td {
-    background-color: rgba(45, 212, 191, 0.28) !important;
-  }
-  /* subtle color tint per column so rows read as more colorful without hurting legibility */
-  .table-colorful tbody td:nth-child(3n+2) {
-    box-shadow: inset 3px 0 0 rgba(20, 184, 166, 0.18);
+    background-color: rgba(45, 212, 191, 0.22) !important;
   }
   .table-colorful tfoot td {
     border-top: 3px solid #fbbf24;
@@ -443,12 +405,12 @@ aside nav.scroll-slim::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
 }
 
-/* ═════ Modal (above EVERYTHING — guaranteed foreground) ════════ */
+/* ═════ Modal (above EVERYTHING) ════════════════════════════════ */
 .modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(2, 6, 23, 0.68);
+  background: rgba(2, 6, 23, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   animation: fadeIn 0.2s ease both;
@@ -462,8 +424,6 @@ aside nav.scroll-slim::-webkit-scrollbar-thumb {
   justify-content: center;
   pointer-events: none;
   padding: 0;
-  isolation: isolate;
-  height: 100dvh;
 }
 @media (min-width: 640px) {
   .modal-shell {
@@ -475,9 +435,6 @@ aside nav.scroll-slim::-webkit-scrollbar-thumb {
   pointer-events: auto;
   width: 100%;
   max-height: 92vh;
-  max-height: 92dvh;
-  display: flex;
-  flex-direction: column;
   overflow-y: auto;
   overscroll-behavior: contain; /* page behind never scrolls by accident */
   background: #ffffff;
@@ -491,11 +448,6 @@ aside nav.scroll-slim::-webkit-scrollbar-thumb {
     border-radius: 1rem;
     animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-}
-/* body content area scrolls if the panel itself is capped, keeping header/footer pinned */
-.modal-panel > div:nth-child(2) {
-  overflow-y: auto;
-  flex: 1 1 auto;
 }
 /* tall content → its own smooth gradient scrollbar inside the panel */
 .modal-panel::-webkit-scrollbar {

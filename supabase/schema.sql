@@ -326,21 +326,30 @@ values ('app', 'ur', 'light', 'sqft', 'AF', 1, true, 'روپے')
 on conflict (id) do nothing;
 
 -- ═══════════════════════════════════════════════════════════════════
--- ADD-ON: product photos, manual custom columns
+-- ADD-ON: product photos + manual custom columns (EVERY table)
 -- Paste this section (or the whole file) into SQL Editor → Run.
--- Safe to re-run.
+-- Safe to re-run. A standalone copy lives in update_photos_custom_columns.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- Stock: photos + free-form extra fields
-alter table public.stock add column if not exists photo_urls text[] default '{}';
-alter table public.stock add column if not exists custom_fields jsonb default '{}'::jsonb;
-
--- Customers: photos + free-form extra fields
-alter table public.customers add column if not exists photo_urls text[] default '{}';
-alter table public.customers add column if not exists custom_fields jsonb default '{}'::jsonb;
+-- Photos + free-form extra fields on every data table
+alter table public.stock         add column if not exists photo_urls text[] default '{}';
+alter table public.stock         add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.customers     add column if not exists photo_urls text[] default '{}';
+alter table public.customers     add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.labour        add column if not exists photo_urls text[] default '{}';
+alter table public.labour        add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.machinery     add column if not exists photo_urls text[] default '{}';
+alter table public.machinery     add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.expenses      add column if not exists photo_urls text[] default '{}';
+alter table public.expenses      add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.marble_types  add column if not exists photo_urls text[] default '{}';
+alter table public.marble_types  add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.marble_sizes  add column if not exists photo_urls text[] default '{}';
+alter table public.marble_sizes  add column if not exists custom_fields jsonb default '{}'::jsonb;
+alter table public.invoices      add column if not exists photo_urls text[] default '{}';
 
 -- Manually-added columns, defined from the Settings screen.
--- table_name is 'stock' or 'customers' (extend Settings' picker for more tables).
+-- table_name: stock | customers | labour | machinery | expenses | marble_types | marble_sizes | invoices
 create table if not exists public.custom_columns (
   id          uuid primary key default gen_random_uuid(),
   table_name  text not null,
