@@ -1,14 +1,16 @@
 import { useMemo, useState } from 'react';
-import { Shapes } from 'lucide-react';
+import { ImagePlus, Shapes } from 'lucide-react';
 import PageHeader from '../../components/ui/PageHeader';
 import Modal from '../../components/ui/Modal';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import ExportImportBar from '../../components/ui/ExportImportBar';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useMarbleTypes } from '../../hooks/useMarbleTypes';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import { MARBLE_CUTS, type MarbleType } from '../../types';
 import { toLatinDigits } from '../../utils/format';
 import type { ImportConfig } from '../../import/importExcel';
@@ -17,6 +19,7 @@ export default function MarbleTypesPage() {
   const { t, lang, isUr } = useLang();
   const toast = useToast();
   const { rows: types, loading, insert, update, remove } = useMarbleTypes();
+  const { rows: customCols } = useCustomColumns('marble_types');
 
   const [q, setQ] = useState('');
   const [modal, setModal] = useState<{ open: boolean; edit?: MarbleType }>({ open: false });
@@ -30,6 +33,8 @@ export default function MarbleTypesPage() {
   const [customCut, setCustomCut] = useState('');
   const [notes, setNotes] = useState('');
   const [nameErr, setNameErr] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [customVals, setCustomVals] = useState<Record<string, string>>({});
 
   const filtered = useMemo(() => {
     const needle = toLatinDigits(q.trim().toLowerCase());
@@ -51,6 +56,8 @@ export default function MarbleTypesPage() {
     setCustomCut('');
     setNotes('');
     setNameErr('');
+    setPhotos([]);
+    setCustomVals({});
     setModal({ open: true });
   };
 
@@ -63,6 +70,8 @@ export default function MarbleTypesPage() {
     setCustomCut('');
     setNotes(m.notes ?? '');
     setNameErr('');
+    setPhotos(m.photo_urls ?? []);
+    setCustomVals(m.custom_fields ?? {});
     setModal({ open: true, edit: m });
   };
 
@@ -82,7 +91,9 @@ export default function MarbleTypesPage() {
       color_name: colorName.trim() || null,
       color_hex: colorHex,
       cuts: allCuts,
-      notes: notes.trim() || null
+      notes: notes.trim() || null,
+      photo_urls: photos.length ? photos : null,
+      custom_fields: Object.keys(customVals).length ? customVals : null
     };
     try {
       if (modal.edit) await update(modal.edit.id, values);
@@ -157,11 +168,19 @@ export default function MarbleTypesPage() {
         {filtered.map((m) => (
           <div key={m.id} className="glass rounded-3xl shadow-glass p-5 flex flex-col gap-3">
             <div className="flex items-center gap-4">
-              <div
-                className="h-16 w-16 shrink-0 rounded-3xl border-4 border-white shadow-lg"
-                style={{ background: m.color_hex ?? '#94a3b8' }}
-                title={m.color_name ?? ''}
-              />
+              {m.photo_urls && m.photo_urls.length > 0 ? (
+                <img
+                  src={m.photo_urls[0]}
+                  alt=""
+                  className="h-16 w-16 shrink-0 rounded-3xl border-4 border-white shadow-lg object-cover"
+                />
+              ) : (
+                <div
+                  className="h-16 w-16 shrink-0 rounded-3xl border-4 border-white shadow-lg"
+                  style={{ background: m.color_hex ?? '#94a3b8' }}
+                  title={m.color_name ?? ''}
+                />
+              )}
               <div className="min-w-0">
                 <div className="font-urdu u-text text-xl font-bold text-stone-900 truncate">{m.name_ur}</div>
                 <div className="text-sm font-bold text-emerald-600 truncate" dir="ltr">{m.name_en}</div>
@@ -176,6 +195,15 @@ export default function MarbleTypesPage() {
               </div>
             )}
             {m.notes && <p className={`text-xs text-stone-500 ${isUr ? 'font-urdu u-text' : ''}`}>{m.notes}</p>}
+            {customCols.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {customCols.map((c) => (
+                  <span key={c.id} className={`chip chip-static !text-[11px] ${isUr ? 'font-urdu' : ''}`}>
+                    {isUr ? c.label_ur : c.label_en}: {m.custom_fields?.[c.key] || '—'}
+                  </span>
+                ))}
+              </div>
+            )}
             <div className="flex gap-2 mt-auto pt-1">
               <Button size="sm" variant="info" onClick={() => openEdit(m)}>{t('common.edit')}</Button>
               <Button size="sm" variant="danger" onClick={() => setDel(m)}>{t('common.delete')}</Button>
@@ -252,6 +280,20 @@ export default function MarbleTypesPage() {
           <div className="sm:col-span-2">
             <Input label={t('common.notes')} value={notes} onChange={setNotes} />
           </div>
+          {/* manually-added columns (from Settings) */}
+          {customCols.map((c) => (
+            <Input
+              key={c.id}
+              label={isUr ? c.label_ur : c.label_en}
+              value={customVals[c.key] ?? ''}
+              onChange={(v) => setCustomVals((prev) => ({ ...prev, [c.key]: v }))}
+            />
+          ))}
+        </div>
+
+        {/* photos — below the main fields so you scroll down to see them */}
+        <div className="mt-6 pt-6 border-t border-stone-100">
+          <PhotoUpload urls={photos} onChange={setPhotos} folder="marble-types" />
         </div>
       </Modal>
 

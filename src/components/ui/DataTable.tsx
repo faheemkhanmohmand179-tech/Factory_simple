@@ -60,19 +60,23 @@ export default function DataTable<T = Record<string, unknown>>({
       <div className="overflow-x-auto scroll-slim">
         <table className={`w-full min-w-[720px] text-sm table-colorful ${isUr ? 'urdu-table' : ''}`}>
           <thead>
-            <tr className="bg-gradient-to-r from-teal-600 to-emerald-600 text-white">
+            <tr className="text-white" style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}>
               {columns.map((c) => (
                 <th
                   key={c.key}
-                  className={`sticky top-0 z-[5] bg-gradient-to-r from-teal-600 to-emerald-600 px-4 py-3.5 font-bold text-start whitespace-nowrap ${
+                  className={`sticky top-0 z-[5] px-4 py-3.5 font-bold text-start whitespace-nowrap ${
                     isUr ? 'font-urdu u-head-sm' : ''
                   } ${c.align === 'right' ? 'text-end' : c.align === 'center' ? 'text-center' : ''}`}
+                  style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}
                 >
                   {c.label}
                 </th>
               ))}
               {hasActions && (
-                <th className="sticky top-0 z-[5] bg-gradient-to-r from-teal-600 to-emerald-600 px-4 py-3.5 font-bold text-center whitespace-nowrap">
+                <th
+                  className="sticky top-0 z-[5] px-4 py-3.5 font-bold text-center whitespace-nowrap"
+                  style={{ background: 'linear-gradient(90deg, #0f766e 0%, #059669 45%, #ca8a04 130%)' }}
+                >
                   {t('common.actions')}
                 </th>
               )}

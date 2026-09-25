@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { CalendarCheck, ClipboardList, HardHat } from 'lucide-react';
+import { CalendarCheck, ClipboardList, HardHat, ImagePlus } from 'lucide-react';
 import PageHeader from '../../components/ui/PageHeader';
 import DataTable from '../../components/ui/DataTable';
 import Modal from '../../components/ui/Modal';
@@ -8,9 +8,11 @@ import Input from '../../components/ui/Input';
 import Select from '../../components/ui/Select';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import ExportImportBar from '../../components/ui/ExportImportBar';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useLabour } from '../../hooks/useLabour';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import { LABOUR_CATEGORIES, optLabel, type Labour } from '../../types';
 import { fmtDate, fmtNum, num, toLatinDigits } from '../../utils/format';
 import { parseDateCell, parseNumCell, type ImportConfig } from '../../import/importExcel';
@@ -20,6 +22,7 @@ export default function LabourPage() {
   const toast = useToast();
   const location = useLocation();
   const { rows: labour, loading, insert, update, remove } = useLabour();
+  const { rows: customCols } = useCustomColumns('labour');
 
   const [q, setQ] = useState('');
   const [modal, setModal] = useState<{ open: boolean; edit?: Labour }>({ open: false });
@@ -33,6 +36,8 @@ export default function LabourPage() {
   const [active, setActive] = useState(true);
   const [notes, setNotes] = useState('');
   const [nameErr, setNameErr] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [customVals, setCustomVals] = useState<Record<string, string>>({});
 
   const filtered = useMemo(() => {
     const needle = toLatinDigits(q.trim().toLowerCase());
@@ -55,6 +60,8 @@ export default function LabourPage() {
     setActive(true);
     setNotes('');
     setNameErr('');
+    setPhotos([]);
+    setCustomVals({});
     setModal({ open: true });
   };
 
@@ -67,6 +74,8 @@ export default function LabourPage() {
     setActive(l.active);
     setNotes(l.notes ?? '');
     setNameErr('');
+    setPhotos(l.photo_urls ?? []);
+    setCustomVals(l.custom_fields ?? {});
     setModal({ open: true, edit: l });
   };
 
@@ -84,7 +93,9 @@ export default function LabourPage() {
       daily_wage: num(wage),
       join_date: joinDate || null,
       active,
-      notes: notes.trim() || null
+      notes: notes.trim() || null,
+      photo_urls: photos.length ? photos : null,
+      custom_fields: Object.keys(customVals).length ? customVals : null
     };
     try {
       if (modal.edit) await update(modal.edit.id, values);
@@ -170,6 +181,18 @@ export default function LabourPage() {
         loading={loading}
         rows={filtered}
         columns={[
+          {
+            key: 'photo',
+            label: t('photos.title'),
+            render: (l) =>
+              l.photo_urls && l.photo_urls.length > 0 ? (
+                <img src={l.photo_urls[0]} alt="" className="h-11 w-11 rounded-xl object-cover border-2 border-teal-200" />
+              ) : (
+                <span className="h-11 w-11 grid place-items-center rounded-xl bg-stone-100 text-stone-300">
+                  <ImagePlus className="h-5 w-5" />
+                </span>
+              )
+          },
           { key: 'name', label: t('common.name') },
           { key: 'phone', label: t('common.phone'), render: (l) => <span dir="ltr" className="tabular-nums">{l.phone || '-'}</span> },
           {
@@ -191,7 +214,12 @@ export default function LabourPage() {
                 {l.active ? t('common.active') : t('common.inactive')}
               </span>
             )
-          }
+          },
+          ...customCols.map((c) => ({
+            key: `custom_${c.key}`,
+            label: isUr ? c.label_ur : c.label_en,
+            render: (l: Labour) => <span className={isUr ? 'font-urdu' : ''}>{l.custom_fields?.[c.key] || '—'}</span>
+          }))
         ]}
         onEdit={openEdit}
         onDelete={(l) => setDel(l)}
@@ -242,6 +270,20 @@ export default function LabourPage() {
           <div className="sm:col-span-2">
             <Input label={t('common.notes')} value={notes} onChange={setNotes} />
           </div>
+          {/* manually-added columns (from Settings) */}
+          {customCols.map((c) => (
+            <Input
+              key={c.id}
+              label={isUr ? c.label_ur : c.label_en}
+              value={customVals[c.key] ?? ''}
+              onChange={(v) => setCustomVals((prev) => ({ ...prev, [c.key]: v }))}
+            />
+          ))}
+        </div>
+
+        {/* photos — below the main fields so you scroll down to see them */}
+        <div className="mt-6 pt-6 border-t border-stone-100">
+          <PhotoUpload urls={photos} onChange={setPhotos} folder="labour" />
         </div>
       </Modal>
 

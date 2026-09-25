@@ -140,6 +140,7 @@ export interface Invoice {
   payment_mode: string | null;
   notes: string | null;
   created_at: string;
+  photo_urls?: string[] | null;
 }
 
 export interface InvoiceItem {
@@ -164,6 +165,8 @@ export interface Labour {
   active: boolean;
   notes: string | null;
   created_at: string;
+  photo_urls?: string[] | null;
+  custom_fields?: Record<string, string> | null;
 }
 
 export interface Attendance {
@@ -200,6 +203,8 @@ export interface Machinery {
   cost: number | null;
   notes: string | null;
   created_at: string;
+  photo_urls?: string[] | null;
+  custom_fields?: Record<string, string> | null;
 }
 
 export interface Maintenance {
@@ -219,6 +224,8 @@ export interface MarbleType {
   cuts: string[] | null;
   notes: string | null;
   created_at: string;
+  photo_urls?: string[] | null;
+  custom_fields?: Record<string, string> | null;
 }
 
 export interface MarbleSize {
@@ -229,6 +236,8 @@ export interface MarbleSize {
   unit: string;
   is_custom: boolean;
   notes: string | null;
+  photo_urls?: string[] | null;
+  custom_fields?: Record<string, string> | null;
 }
 
 export interface StockItem {
@@ -268,6 +277,8 @@ export interface Expense {
   amount: number;
   description: string | null;
   created_at: string;
+  photo_urls?: string[] | null;
+  custom_fields?: Record<string, string> | null;
 }
 
 export interface AppSettings {

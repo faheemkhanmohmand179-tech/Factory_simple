@@ -7,6 +7,7 @@ import Input from '../../components/ui/Input';
 import Select from '../../components/ui/Select';
 import Modal from '../../components/ui/Modal';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useInvoices } from '../../hooks/useInvoices';
@@ -80,6 +81,7 @@ export default function InvoiceFormPage() {
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [saving, setSaving] = useState(false);
   const touched = useRef(false);
+  const [photos, setPhotos] = useState<string[]>([]);
 
   // prefill: edit mode or duplicate
   useEffect(() => {
@@ -95,6 +97,7 @@ export default function InvoiceFormPage() {
       setReceived(String(num(inv.received)));
       setPaymentMode(inv.payment_mode ?? 'cash');
       setNotes(inv.notes ?? '');
+      setPhotos((inv as Invoice).photo_urls ?? []);
       const its = items.filter((it) => it.invoice_id === inv.id);
       if (its.length > 0) {
         setRows(
@@ -119,6 +122,7 @@ export default function InvoiceFormPage() {
         setReceived(String(num(src.received)));
         setPaymentMode(src.payment_mode ?? 'cash');
         setNotes(src.notes ?? '');
+        setPhotos((src as Invoice).photo_urls ?? []);
         const its = items.filter((it) => it.invoice_id === src.id);
         if (its.length > 0) {
           setRows(
@@ -214,7 +218,8 @@ export default function InvoiceFormPage() {
         received: receivedNum,
         remaining,
         payment_mode: paymentMode,
-        notes: notes.trim() || null
+        notes: notes.trim() || null,
+        photo_urls: photos.length ? photos : null
       };
       let invoiceId: string;
       if (editing && id) {
@@ -565,6 +570,11 @@ export default function InvoiceFormPage() {
             {saveErr}
           </div>
         )}
+      </div>
+
+      {/* bill photos — kept below the main stuff so you scroll down to see them */}
+      <div className="glass rounded-3xl shadow-glass p-4 sm:p-6">
+        <PhotoUpload urls={photos} onChange={(u) => { markTouched(); setPhotos(u); }} folder="invoices" />
       </div>
 
       {/* footer actions */}

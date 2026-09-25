@@ -5,7 +5,6 @@ import { useAuth } from './AuthProvider';
 import { useLang } from '../i18n';
 import { isSupabaseConfigured } from '../lib/supabaseClient';
 import { FACTORY } from '../lib/factory';
-import LangToggle from '../components/ui/LangToggle';
 
 export default function LoginPage() {
   const { t, isUr } = useLang();
@@ -39,11 +38,6 @@ export default function LoginPage() {
       </div>
 
       <div className="relative z-10 w-full max-w-md">
-        <div className="flex justify-center mb-3">
-          <div className="bg-gradient-to-r from-indigo-900/60 via-violet-800/60 to-fuchsia-800/60 rounded-3xl shadow-lg">
-            <LangToggle />
-          </div>
-        </div>
         <div className="glass rounded-3xl shadow-2xl p-6 sm:p-8">
           {/* Branding */}
           <div className="flex flex-col items-center text-center gap-2 mb-6">

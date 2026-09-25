@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { LayoutGrid, Rows3, Wrench } from 'lucide-react';
+import { LayoutGrid, Rows3, Wrench, ImagePlus } from 'lucide-react';
 import PageHeader from '../../components/ui/PageHeader';
 import DataTable from '../../components/ui/DataTable';
 import Modal from '../../components/ui/Modal';
@@ -8,9 +8,11 @@ import Select from '../../components/ui/Select';
 import Button from '../../components/ui/Button';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import ExportImportBar from '../../components/ui/ExportImportBar';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useMachinery } from '../../hooks/useMachinery';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import { MACHINE_STATUS, MACHINE_TYPES, optLabel, type Machinery, type Maintenance } from '../../types';
 import { fmtDate, fmtNum, num, toLatinDigits } from '../../utils/format';
 import { parseDateCell, parseNumCell, type ImportConfig } from '../../import/importExcel';
@@ -19,6 +21,7 @@ export default function MachineryPage() {
   const { t, lang, isUr } = useLang();
   const toast = useToast();
   const { rows: machines, maintenance, loading, insert, update, remove, insertMaintenance, removeMaintenance } = useMachinery();
+  const { rows: customCols } = useCustomColumns('machinery');
 
   const [q, setQ] = useState('');
   const [view, setView] = useState<'grid' | 'table'>('grid');
@@ -35,6 +38,8 @@ export default function MachineryPage() {
   const [cost, setCost] = useState('');
   const [notes, setNotes] = useState('');
   const [nameErr, setNameErr] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [customVals, setCustomVals] = useState<Record<string, string>>({});
 
   // add-log form
   const [logDate, setLogDate] = useState('');
@@ -61,6 +66,8 @@ export default function MachineryPage() {
     setCost('');
     setNotes('');
     setNameErr('');
+    setPhotos([]);
+    setCustomVals({});
     setModal({ open: true });
   };
 
@@ -73,6 +80,8 @@ export default function MachineryPage() {
     setCost(m.cost != null ? String(m.cost) : '');
     setNotes(m.notes ?? '');
     setNameErr('');
+    setPhotos(m.photo_urls ?? []);
+    setCustomVals(m.custom_fields ?? {});
     setModal({ open: true, edit: m });
   };
 
@@ -90,7 +99,9 @@ export default function MachineryPage() {
       status,
       purchase_date: purchaseDate || null,
       cost: num(cost),
-      notes: notes.trim() || null
+      notes: notes.trim() || null,
+      photo_urls: photos.length ? photos : null,
+      custom_fields: Object.keys(customVals).length ? customVals : null
     };
     try {
       if (modal.edit) await update(modal.edit.id, values);
@@ -196,13 +207,30 @@ export default function MachineryPage() {
           loading={loading}
           rows={filtered}
           columns={[
+            {
+              key: 'photo',
+              label: t('photos.title'),
+              render: (m) =>
+                m.photo_urls && m.photo_urls.length > 0 ? (
+                  <img src={m.photo_urls[0]} alt="" className="h-11 w-11 rounded-xl object-cover border-2 border-teal-200" />
+                ) : (
+                  <span className="h-11 w-11 grid place-items-center rounded-xl bg-stone-100 text-stone-300">
+                    <ImagePlus className="h-5 w-5" />
+                  </span>
+                )
+            },
             { key: 'name', label: t('common.name') },
             { key: 'type', label: t('machinery.machineType'), render: (m) => <span className={`chip chip-static ${isUr ? 'font-urdu' : ''}`}>{m.custom_type ?? optLabel(MACHINE_TYPES, m.type, lang, m.type)}</span> },
             { key: 'model', label: t('machinery.model'), render: (m) => m.model || '-' },
             { key: 'status', label: t('machinery.status'), render: statusChip },
             { key: 'purchase_date', label: t('machinery.purchaseDate'), render: (m) => <span dir="ltr" className="tabular-nums">{m.purchase_date ? fmtDate(m.purchase_date) : '-'}</span> },
             { key: 'cost', label: t('machinery.cost'), align: 'right', render: (m) => fmtNum(m.cost) },
-            { key: 'maint', label: t('machinery.maintenance'), align: 'right', render: (m) => fmtNum(maintenanceTotal(m.id)) }
+            { key: 'maint', label: t('machinery.maintenance'), align: 'right', render: (m) => fmtNum(maintenanceTotal(m.id)) },
+            ...customCols.map((c) => ({
+              key: `custom_${c.key}`,
+              label: isUr ? c.label_ur : c.label_en,
+              render: (m: Machinery) => <span className={isUr ? 'font-urdu' : ''}>{m.custom_fields?.[c.key] || '—'}</span>
+            }))
           ]}
           extraActions={(m) => (
             <button
@@ -235,11 +263,15 @@ export default function MachineryPage() {
             <div key={m.id} className="glass rounded-3xl shadow-glass p-5 flex flex-col gap-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className={`h-12 w-12 shrink-0 rounded-2xl grid place-items-center text-white shadow-lg ${
-                    m.status === 'working' ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : m.status === 'repair' ? 'bg-gradient-to-br from-rose-500 to-red-600' : 'bg-gradient-to-br from-stone-400 to-stone-500'
-                  }`}>
-                    <Wrench className="h-6 w-6" />
-                  </div>
+                  {m.photo_urls && m.photo_urls.length > 0 ? (
+                    <img src={m.photo_urls[0]} alt="" className="h-12 w-12 shrink-0 rounded-2xl object-cover border-2 border-teal-200 shadow" />
+                  ) : (
+                    <div className={`h-12 w-12 shrink-0 rounded-2xl grid place-items-center text-white shadow-lg ${
+                      m.status === 'working' ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : m.status === 'repair' ? 'bg-gradient-to-br from-rose-500 to-red-600' : 'bg-gradient-to-br from-stone-400 to-stone-500'
+                    }`}>
+                      <Wrench className="h-6 w-6" />
+                    </div>
+                  )}
                   <div className="min-w-0">
                     <div className={`font-extrabold text-stone-800 truncate ${isUr ? 'font-urdu' : ''}`}>{m.name}</div>
                     <div className="text-xs text-stone-400 truncate">{m.model || '—'}</div>
@@ -310,6 +342,20 @@ export default function MachineryPage() {
           <div className="sm:col-span-2">
             <Input label={t('common.notes')} value={notes} onChange={setNotes} />
           </div>
+          {/* manually-added columns (from Settings) */}
+          {customCols.map((c) => (
+            <Input
+              key={c.id}
+              label={isUr ? c.label_ur : c.label_en}
+              value={customVals[c.key] ?? ''}
+              onChange={(v) => setCustomVals((prev) => ({ ...prev, [c.key]: v }))}
+            />
+          ))}
+        </div>
+
+        {/* photos — below the main fields so you scroll down to see them */}
+        <div className="mt-6 pt-6 border-t border-stone-100">
+          <PhotoUpload urls={photos} onChange={setPhotos} folder="machinery" />
         </div>
       </Modal>
 

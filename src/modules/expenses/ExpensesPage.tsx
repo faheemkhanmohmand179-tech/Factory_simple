@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Receipt } from 'lucide-react';
+import { ImagePlus, Receipt } from 'lucide-react';
 import PageHeader from '../../components/ui/PageHeader';
 import DataTable from '../../components/ui/DataTable';
 import Modal from '../../components/ui/Modal';
@@ -10,9 +10,11 @@ import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import ExportImportBar from '../../components/ui/ExportImportBar';
 import ChartCard from '../../components/ui/ChartCard';
 import StatCard from '../../components/ui/StatCard';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useExpenses } from '../../hooks/useExpenses';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import { EXPENSE_CATEGORIES, optLabel, type Expense } from '../../types';
 import { dayjs, fmtDate, fmtMoney, fmtNum, num, todayStr, toLatinDigits } from '../../utils/format';
 import { parseDateCell, parseNumCell, type ImportConfig } from '../../import/importExcel';
@@ -21,6 +23,7 @@ export default function ExpensesPage() {
   const { t, lang, isUr } = useLang();
   const toast = useToast();
   const { rows: expenses, loading, insert, update, remove } = useExpenses();
+  const { rows: customCols } = useCustomColumns('expenses');
 
   const [q, setQ] = useState('');
   const [modal, setModal] = useState<{ open: boolean; edit?: Expense }>({ open: false });
@@ -31,6 +34,8 @@ export default function ExpensesPage() {
   const [amount, setAmount] = useState('');
   const [desc, setDesc] = useState('');
   const [amountErr, setAmountErr] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [customVals, setCustomVals] = useState<Record<string, string>>({});
 
   const filtered = useMemo(() => {
     const needle = toLatinDigits(q.trim().toLowerCase());
@@ -64,6 +69,8 @@ export default function ExpensesPage() {
     setAmount('');
     setDesc('');
     setAmountErr('');
+    setPhotos([]);
+    setCustomVals({});
     setModal({ open: true });
   };
 
@@ -73,6 +80,8 @@ export default function ExpensesPage() {
     setAmount(String(num(e.amount)));
     setDesc(e.description ?? '');
     setAmountErr('');
+    setPhotos(e.photo_urls ?? []);
+    setCustomVals(e.custom_fields ?? {});
     setModal({ open: true, edit: e });
   };
 
@@ -87,7 +96,9 @@ export default function ExpensesPage() {
       category: inList ? category : 'other',
       custom_category: inList ? null : category,
       amount: num(amount),
-      description: desc.trim() || null
+      description: desc.trim() || null,
+      photo_urls: photos.length ? photos : null,
+      custom_fields: Object.keys(customVals).length ? customVals : null
     };
     try {
       if (modal.edit) await update(modal.edit.id, values);
@@ -168,6 +179,18 @@ export default function ExpensesPage() {
         loading={loading}
         rows={filtered}
         columns={[
+          {
+            key: 'photo',
+            label: t('photos.title'),
+            render: (e) =>
+              e.photo_urls && e.photo_urls.length > 0 ? (
+                <img src={e.photo_urls[0]} alt="" className="h-11 w-11 rounded-xl object-cover border-2 border-teal-200" />
+              ) : (
+                <span className="h-11 w-11 grid place-items-center rounded-xl bg-stone-100 text-stone-300">
+                  <ImagePlus className="h-5 w-5" />
+                </span>
+              )
+          },
           { key: 'expense_date', label: t('common.date'), render: (e) => <span dir="ltr" className="tabular-nums">{fmtDate(e.expense_date)}</span> },
           {
             key: 'category',
@@ -175,7 +198,12 @@ export default function ExpensesPage() {
             render: (e) => <span className={`chip chip-static ${isUr ? 'font-urdu' : ''}`}>{e.custom_category ?? optLabel(EXPENSE_CATEGORIES, e.category, lang, e.category)}</span>
           },
           { key: 'description', label: t('expenses.desc'), render: (e) => <span className={isUr ? 'font-urdu' : ''}>{e.description || '—'}</span> },
-          { key: 'amount', label: t('expenses.amount'), align: 'right', render: (e) => <span className="font-extrabold text-rose-700">{fmtNum(e.amount)}</span> }
+          { key: 'amount', label: t('expenses.amount'), align: 'right', render: (e) => <span className="font-extrabold text-rose-700">{fmtNum(e.amount)}</span> },
+          ...customCols.map((c) => ({
+            key: `custom_${c.key}`,
+            label: isUr ? c.label_ur : c.label_en,
+            render: (e: Expense) => <span className={isUr ? 'font-urdu' : ''}>{e.custom_fields?.[c.key] || '—'}</span>
+          }))
         ]}
         onEdit={openEdit}
         onDelete={(e) => setDel(e)}
@@ -188,7 +216,9 @@ export default function ExpensesPage() {
             <td className="px-4 py-3.5">{t('common.total')}</td>
             <td />
             <td />
+            <td />
             <td className="px-4 py-3.5 text-end tabular-nums text-rose-700">{fmtNum(filtered.reduce((s, e) => s + num(e.amount), 0))}</td>
+            {customCols.length > 0 && customCols.map((c) => <td key={c.id} />)}
             <td />
           </tr>
         }
@@ -228,6 +258,20 @@ export default function ExpensesPage() {
             icon={Receipt}
           />
           <Input label={t('expenses.desc')} value={desc} onChange={setDesc} />
+          {/* manually-added columns (from Settings) */}
+          {customCols.map((c) => (
+            <Input
+              key={c.id}
+              label={isUr ? c.label_ur : c.label_en}
+              value={customVals[c.key] ?? ''}
+              onChange={(v) => setCustomVals((prev) => ({ ...prev, [c.key]: v }))}
+            />
+          ))}
+        </div>
+
+        {/* photos — below the main fields so you scroll down to see them */}
+        <div className="mt-6 pt-6 border-t border-stone-100">
+          <PhotoUpload urls={photos} onChange={setPhotos} folder="expenses" />
         </div>
       </Modal>
 

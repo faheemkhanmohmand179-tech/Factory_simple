@@ -1,26 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Gem, PanelLeft } from 'lucide-react';
+import { PanelLeft, Gem } from 'lucide-react';
 import { useLang } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
 import { FACTORY } from '../../lib/factory';
 
-/** Top bar: logo + factory name + a small online/offline dot. Language lives in Settings. */
+/** Top bar: logo + factory name. Language lives in Settings; no status icons here. */
 export default function Navbar() {
-  const { t } = useLang();
-  const [online, setOnline] = useState(navigator.onLine);
+  const t = useLang().t;
   const toggleSidebar = useAppStore((s) => s.setSidebarCollapsed);
   const collapsed = useAppStore((s) => s.sidebarCollapsed);
-
-  useEffect(() => {
-    const on = () => setOnline(true);
-    const off = () => setOnline(false);
-    window.addEventListener('online', on);
-    window.addEventListener('offline', off);
-    return () => {
-      window.removeEventListener('online', on);
-      window.removeEventListener('offline', off);
-    };
-  }, []);
 
   return (
     <header className="navbar-glass fixed top-0 inset-x-0 z-40">
@@ -49,14 +36,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex-1" />
-
-        {/* small online / offline dot — full status + language toggle live in Settings */}
-        <span
-          className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white/10"
-          title={online ? t('common.online') : t('common.offline')}
-        >
-          <span className={`h-2.5 w-2.5 rounded-full ${online ? 'bg-emerald-300 animate-pulse' : 'bg-rose-300'}`} />
-        </span>
       </div>
     </header>
   );

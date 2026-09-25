@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { LayoutGrid, Rows3, Ruler } from 'lucide-react';
+import { ImagePlus, LayoutGrid, Rows3, Ruler } from 'lucide-react';
 import PageHeader from '../../components/ui/PageHeader';
 import DataTable from '../../components/ui/DataTable';
 import Modal from '../../components/ui/Modal';
@@ -8,9 +8,11 @@ import Select from '../../components/ui/Select';
 import Button from '../../components/ui/Button';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
 import ExportImportBar from '../../components/ui/ExportImportBar';
+import PhotoUpload from '../../components/ui/PhotoUpload';
 import { useToast } from '../../components/ui/Toast';
 import { useLang } from '../../i18n';
 import { useMarbleSizes } from '../../hooks/useMarbleSizes';
+import { useCustomColumns } from '../../hooks/useCustomColumns';
 import { SIZE_UNITS, type MarbleSize } from '../../types';
 import { fmtNum, num, toLatinDigits } from '../../utils/format';
 import { parseNumCell, type ImportConfig } from '../../import/importExcel';
@@ -19,6 +21,7 @@ export default function MarbleSizesPage() {
   const { t, isUr } = useLang();
   const toast = useToast();
   const { rows: sizes, loading, insert, update, remove } = useMarbleSizes();
+  const { rows: customCols } = useCustomColumns('marble_sizes');
 
   const [q, setQ] = useState('');
   const [view, setView] = useState<'table' | 'grid'>('table');
@@ -31,6 +34,8 @@ export default function MarbleSizesPage() {
   const [unit, setUnit] = useState('inch');
   const [notes, setNotes] = useState('');
   const [labelErr, setLabelErr] = useState('');
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [customVals, setCustomVals] = useState<Record<string, string>>({});
 
   const filtered = useMemo(() => {
     const needle = toLatinDigits(q.trim().toLowerCase());
@@ -45,6 +50,8 @@ export default function MarbleSizesPage() {
     setUnit('inch');
     setNotes('');
     setLabelErr('');
+    setPhotos([]);
+    setCustomVals({});
     setModal({ open: true });
   };
 
@@ -55,6 +62,8 @@ export default function MarbleSizesPage() {
     setUnit(s.unit);
     setNotes(s.notes ?? '');
     setLabelErr('');
+    setPhotos(s.photo_urls ?? []);
+    setCustomVals(s.custom_fields ?? {});
     setModal({ open: true, edit: s });
   };
 
@@ -69,7 +78,9 @@ export default function MarbleSizesPage() {
       width_in: num(width),
       unit,
       is_custom: modal.edit ? modal.edit.is_custom : true,
-      notes: notes.trim() || null
+      notes: notes.trim() || null,
+      photo_urls: photos.length ? photos : null,
+      custom_fields: Object.keys(customVals).length ? customVals : null
     };
     try {
       if (modal.edit) await update(modal.edit.id, values);
@@ -135,12 +146,29 @@ export default function MarbleSizesPage() {
           loading={loading}
           rows={filtered}
           columns={[
+            {
+              key: 'photo',
+              label: t('photos.title'),
+              render: (s) =>
+                s.photo_urls && s.photo_urls.length > 0 ? (
+                  <img src={s.photo_urls[0]} alt="" className="h-11 w-11 rounded-xl object-cover border-2 border-teal-200" />
+                ) : (
+                  <span className="h-11 w-11 grid place-items-center rounded-xl bg-stone-100 text-stone-300">
+                    <ImagePlus className="h-5 w-5" />
+                  </span>
+                )
+            },
             { key: 'label', label: t('marbleSizes.label'), render: (s) => <span dir="ltr" className="font-bold">{s.label}</span> },
             { key: 'length_in', label: t('marbleSizes.length'), align: 'right', render: (s) => fmtNum(s.length_in) },
             { key: 'width_in', label: t('marbleSizes.width'), align: 'right', render: (s) => fmtNum(s.width_in) },
             { key: 'unit', label: t('marbleSizes.unit'), render: (s) => <span className={`chip chip-static ${isUr ? 'font-urdu' : ''}`}>{s.unit === 'inch' ? (isUr ? 'انچ' : 'Inch') : isUr ? 'فٹ' : 'Feet'}</span> },
             { key: 'is_custom', label: t('marbleSizes.custom'), render: (s) => (s.is_custom ? '✓' : '—') },
-            { key: 'notes', label: t('common.notes'), render: (s) => s.notes || '-' }
+            { key: 'notes', label: t('common.notes'), render: (s) => s.notes || '-' },
+            ...customCols.map((c) => ({
+              key: `custom_${c.key}`,
+              label: isUr ? c.label_ur : c.label_en,
+              render: (s: MarbleSize) => <span className={isUr ? 'font-urdu' : ''}>{s.custom_fields?.[c.key] || '—'}</span>
+            }))
           ]}
           onEdit={openEdit}
           onDelete={(s) => setDel(s)}
@@ -197,6 +225,20 @@ export default function MarbleSizesPage() {
           <div className="sm:col-span-2">
             <Input label={t('common.notes')} value={notes} onChange={setNotes} />
           </div>
+          {/* manually-added columns (from Settings) */}
+          {customCols.map((c) => (
+            <Input
+              key={c.id}
+              label={isUr ? c.label_ur : c.label_en}
+              value={customVals[c.key] ?? ''}
+              onChange={(v) => setCustomVals((prev) => ({ ...prev, [c.key]: v }))}
+            />
+          ))}
+        </div>
+
+        {/* photos — below the main fields so you scroll down to see them */}
+        <div className="mt-6 pt-6 border-t border-stone-100">
+          <PhotoUpload urls={photos} onChange={setPhotos} folder="marble-sizes" />
         </div>
       </Modal>
 

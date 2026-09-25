@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ImagePlus, Loader2, Trash2, X } from 'lucide-react';
 import { useLang } from '../../i18n';
 import { useToast } from './Toast';
@@ -73,6 +74,7 @@ export default function PhotoUpload({
   return (
     <div className="space-y-3">
       <div className={`text-sm font-extrabold text-stone-700 ${isUr ? 'font-urdu u-text' : ''}`}>{t('photos.title')}</div>
+      <p className={`text-xs text-stone-400 -mt-1.5 ${isUr ? 'font-urdu' : ''}`}>{t('photos.hint')}</p>
 
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
         {urls.map((u, i) => (
@@ -114,26 +116,29 @@ export default function PhotoUpload({
         }}
       />
 
-      {/* full-size preview — sits above everything, same as Modal */}
-      {preview && (
-        <>
-          <div className="modal-overlay" onClick={() => setPreview(null)} />
-          <div className="modal-shell" onClick={() => setPreview(null)}>
-            <div className="pointer-events-auto max-w-3xl w-full p-2" onClick={(e) => e.stopPropagation()}>
-              <div className="relative rounded-2xl overflow-hidden bg-black/20">
-                <img src={preview} alt="" className="w-full max-h-[80vh] object-contain" />
-                <button
-                  type="button"
-                  onClick={() => setPreview(null)}
-                  className="absolute top-3 end-3 h-10 w-10 grid place-items-center rounded-xl bg-white/90 text-stone-700 shadow-lg"
-                >
-                  <X className="h-5 w-5" />
-                </button>
+      {/* full-size preview — portaled to <body> so it sits ABOVE EVERYTHING
+          (even above an open add-record modal, no matter its stacking) */}
+      {preview &&
+        createPortal(
+          <>
+            <div className="modal-overlay" onClick={() => setPreview(null)} />
+            <div className="modal-shell" onClick={() => setPreview(null)}>
+              <div className="pointer-events-auto max-w-3xl w-full p-2" onClick={(e) => e.stopPropagation()}>
+                <div className="relative rounded-2xl overflow-hidden bg-black/20 ring-4 ring-white/60">
+                  <img src={preview} alt="" className="w-full max-h-[80vh] object-contain bg-white" />
+                  <button
+                    type="button"
+                    onClick={() => setPreview(null)}
+                    className="absolute top-3 end-3 h-10 w-10 grid place-items-center rounded-xl bg-white/90 text-stone-700 shadow-lg"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      )}
+          </>,
+          document.body
+        )}
     </div>
   );
 }

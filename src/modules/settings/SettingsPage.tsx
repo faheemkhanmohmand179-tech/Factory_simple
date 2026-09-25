@@ -11,6 +11,18 @@ import { supabase } from '../../lib/supabaseClient';
 import { toLatinDigits, todayStr } from '../../utils/format';
 import type { Lang, RateMode, CustomColumn } from '../../types';
 
+// tables that support photos + manually-added extra columns
+const COLUMN_TABLES = [
+  'stock',
+  'customers',
+  'labour',
+  'machinery',
+  'expenses',
+  'marble_types',
+  'marble_sizes',
+  'invoices'
+] as const;
+
 const TABLES = [
   'customers',
   'invoices',
@@ -29,6 +41,17 @@ const TABLES = [
   'custom_columns'
 ];
 
+const TABLE_KEY: Record<string, string> = {
+  stock: 'stock',
+  customers: 'customers',
+  labour: 'labour',
+  machinery: 'machinery',
+  expenses: 'expenses',
+  marble_types: 'marbleTypes',
+  marble_sizes: 'marbleSizes',
+  invoices: 'invoices'
+};
+
 declare global {
   interface Window {
     __pwaInstallPrompt?: (Event & { prompt: () => Promise<void> }) | null;
@@ -45,7 +68,7 @@ export default function SettingsPage() {
   const [installable, setInstallable] = useState(Boolean(window.__pwaInstallPrompt));
 
   // ── custom (manually-added) columns ──
-  const [colTable, setColTable] = useState<'stock' | 'customers'>('stock');
+  const [colTable, setColTable] = useState<string>('stock');
   const { rows: customCols, insert: insertCol, remove: removeCol } = useCustomColumns(colTable);
   const [newColUr, setNewColUr] = useState('');
   const [newColEn, setNewColEn] = useState('');
@@ -245,21 +268,21 @@ export default function SettingsPage() {
         </h2>
         <p className={`text-sm text-stone-400 ${isUr ? 'font-urdu u-text' : ''}`}>{t('settings.customColumnsHint')}</p>
 
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => setColTable('stock')}
-            className={`btn btn-sm ${colTable === 'stock' ? 'btn-primary' : 'btn-outline'}`}
-          >
-            <span className={isUr ? 'font-urdu' : ''}>{t('stock.title')}</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setColTable('customers')}
-            className={`btn btn-sm ${colTable === 'customers' ? 'btn-primary' : 'btn-outline'}`}
-          >
-            <span className={isUr ? 'font-urdu' : ''}>{t('customers.title')}</span>
-          </button>
+        {/* pick which table the columns belong to */}
+        <div>
+          <div className={`text-xs font-bold text-stone-400 mb-1.5 ${isUr ? 'font-urdu' : ''}`}>{t('settings.pickTable')}</div>
+          <div className="flex flex-wrap gap-2">
+            {COLUMN_TABLES.map((tbl) => (
+              <button
+                key={tbl}
+                type="button"
+                onClick={() => setColTable(tbl)}
+                className={`btn btn-sm ${colTable === tbl ? 'btn-primary' : 'btn-outline'}`}
+              >
+                <span className={`text-[11px] ${isUr ? 'font-urdu' : ''}`} dir="ltr">{t(`nav.${TABLE_KEY[tbl]}`)}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {customCols.length === 0 ? (

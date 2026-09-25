@@ -51,6 +51,11 @@
     min-height: 56px;
     line-height: 2;
   }
+  /* Urdu buttons: Nastaliq needs head-room or it clips */
+  html[lang='ur'] .btn .font-urdu {
+    padding-top: 0.35em;
+    overflow: visible;
+  }
   .btn-sm {
     @apply px-3 py-2 text-xs rounded-md;
     min-height: 44px;
@@ -59,19 +64,48 @@
     @apply px-6 py-4 text-base rounded-xl;
     min-height: 56px;
   }
-  .btn-primary   { @apply bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 shadow-teal-600/30; }
-  .btn-success   { @apply bg-gradient-to-r from-emerald-500 to-lime-500 hover:from-emerald-400 hover:to-lime-400 shadow-emerald-500/30; }
-  .btn-danger    { @apply bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 shadow-rose-600/30; }
-  .btn-warning   { @apply bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 shadow-amber-500/30; }
-  .btn-info      { @apply bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 shadow-cyan-600/30; }
-  .btn-pdf       { @apply bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 shadow-red-600/30; }
-  .btn-whatsapp  { @apply bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 shadow-green-600/30; }
-  .btn-excel     { @apply bg-gradient-to-r from-emerald-600 to-green-700 hover:from-emerald-500 hover:to-green-600 shadow-emerald-700/30; }
-  .btn-word      { @apply bg-gradient-to-r from-cyan-600 to-teal-700 hover:from-cyan-500 hover:to-teal-600 shadow-cyan-600/30; }
-  .btn-csv       { @apply bg-gradient-to-r from-stone-600 to-stone-800 hover:from-stone-500 hover:to-stone-700 shadow-stone-700/30; }
-  .btn-import    { @apply bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 shadow-amber-500/30; }
+  /* ── SOLID vivid gradients (3-stop + gloss highlight + colored ring) ── */
+  .btn-primary,
+  .btn-success,
+  .btn-danger,
+  .btn-warning,
+  .btn-info,
+  .btn-pdf,
+  .btn-whatsapp,
+  .btn-excel,
+  .btn-word,
+  .btn-csv,
+  .btn-import {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.12),
+      0 8px 18px -6px rgba(6, 78, 59, 0.45);
+  }
+  .btn-primary   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0f766e 0%, #059669 45%, #65a30d 100%); }
+  .btn-primary:hover { background-image: linear-gradient(135deg, #0d9488 0%, #10b981 45%, #84cc16 100%); }
+  .btn-success   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #059669 0%, #22c55e 50%, #a3e635 100%); }
+  .btn-success:hover { background-image: linear-gradient(135deg, #10b981 0%, #34d399 50%, #bef264 100%); }
+  .btn-danger    { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #e11d48 0%, #ef4444 55%, #f97316 100%); }
+  .btn-danger:hover { background-image: linear-gradient(135deg, #f43f5e 0%, #f87171 55%, #fb923c 100%); }
+  .btn-warning   { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%); }
+  .btn-warning:hover { background-image: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fcd34d 100%); }
+  .btn-info      { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0e7490 0%, #0891b2 50%, #14b8a6 100%); }
+  .btn-info:hover { background-image: linear-gradient(135deg, #06b6d4 0%, #22d3ee 50%, #2dd4bf 100%); }
+  .btn-pdf       { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #b91c1c 0%, #e11d48 55%, #f43f5e 100%); }
+  .btn-pdf:hover { background-image: linear-gradient(135deg, #dc2626 0%, #f43f5e 55%, #fb7185 100%); }
+  .btn-whatsapp  { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #22c55e 100%); }
+  .btn-whatsapp:hover { background-image: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%); }
+  .btn-excel     { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #047857 0%, #16a34a 55%, #84cc16 100%); }
+  .btn-excel:hover { background-image: linear-gradient(135deg, #059669 0%, #22c55e 55%, #a3e635 100%); }
+  .btn-word      { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #0369a1 0%, #0891b2 55%, #0d9488 100%); }
+  .btn-word:hover { background-image: linear-gradient(135deg, #0284c7 0%, #06b6d4 55%, #14b8a6 100%); }
+  .btn-csv       { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #57534e 0%, #78716c 55%, #a8a29e 100%); }
+  .btn-csv:hover { background-image: linear-gradient(135deg, #6b7280 0%, #8b8378 55%, #b8b0a8 100%); }
+  .btn-import    { @apply text-white shadow-lg; background-image: linear-gradient(135deg, #b45309 0%, #f59e0b 55%, #facc15 100%); }
+  .btn-import:hover { background-image: linear-gradient(135deg, #d97706 0%, #fbbf24 55%, #fde047 100%); }
   .btn-neutral   { @apply bg-gradient-to-r from-stone-200 to-stone-300 text-stone-800 hover:from-stone-100 hover:to-stone-200 shadow-stone-300/40; }
-  .btn-outline   { @apply border-2 border-teal-300 bg-white/80 text-teal-700 hover:bg-teal-50 shadow-none rounded-lg; }
+  .btn-outline   { @apply border-2 border-teal-400 bg-white/85 text-teal-700 hover:bg-teal-50 shadow-md shadow-teal-500/20 rounded-lg; }
   .btn-ghost     { @apply bg-stone-100 text-stone-700 hover:bg-stone-200 shadow-none rounded-lg; }
 
   /* ── inputs ─────────────────────────────────────────────────── */
@@ -99,9 +133,17 @@
     @apply inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold
       bg-white/25 text-white border border-white/40 backdrop-blur transition
       hover:bg-white/40 active:scale-95 cursor-pointer whitespace-nowrap;
+    min-height: 34px;
+  }
+  html[lang='ur'] .chip {
+    min-height: 42px;
+    padding-top: 0.45em;
+    line-height: 1.9;
+    overflow: visible;
   }
   .chip-active {
-    @apply bg-white text-teal-700 border-white shadow-md;
+    @apply text-teal-700 border-white shadow-md;
+    background-image: linear-gradient(135deg, #ffffff 0%, #ecfdf5 60%, #fef3c7 100%);
   }
   .chip-static {
     @apply bg-teal-50 text-teal-700 border-teal-100 cursor-default hover:bg-teal-50;
@@ -127,29 +169,42 @@
     font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', serif;
   }
 
-  /* ── colorful bordered table ──────────────────────────────────── */
+  /* ── COLORFUL bordered table — rainbow frame + colored cell borders ── */
   .table-colorful {
     @apply border-separate;
     border-spacing: 0;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    background:
+      linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(120deg, #0d9488, #10b981, #f59e0b, #14b8a6) border-box;
   }
   .table-colorful thead th {
-    border-bottom: 3px solid rgba(255, 255, 255, 0.35);
+    border-bottom: 3px solid #fbbf24;
   }
   .table-colorful thead th:not(:last-child) {
-    border-inline-end: 1px solid rgba(255, 255, 255, 0.25);
+    border-inline-end: 2px solid rgba(255, 255, 255, 0.35);
   }
   .table-colorful tbody td {
-    border-bottom: 1px solid #cffafe;
+    border-bottom: 2px solid #99f6e4;
   }
   .table-colorful tbody td:not(:last-child) {
-    border-inline-end: 1px solid #ecfeff;
+    border-inline-end: 2px solid #ccfbf1;
   }
-  .table-colorful tbody tr:nth-child(4n+1) td { background-color: rgba(240, 253, 250, 0.9); }
-  .table-colorful tbody tr:nth-child(4n+2) td { background-color: rgba(255, 255, 255, 0.95); }
-  .table-colorful tbody tr:nth-child(4n+3) td { background-color: rgba(254, 249, 231, 0.7); }
-  .table-colorful tbody tr:nth-child(4n+4) td { background-color: rgba(255, 255, 255, 0.95); }
+  .table-colorful tbody tr:nth-child(4n+1) td { background-color: rgba(240, 253, 250, 0.95); }
+  .table-colorful tbody tr:nth-child(4n+2) td { background-color: rgba(255, 255, 255, 0.98); }
+  .table-colorful tbody tr:nth-child(4n+3) td { background-color: rgba(254, 252, 232, 0.9); }
+  .table-colorful tbody tr:nth-child(4n+4) td { background-color: rgba(255, 255, 255, 0.98); }
   .table-colorful tbody tr:hover td {
-    background-color: rgba(45, 212, 191, 0.18) !important;
+    background-color: rgba(45, 212, 191, 0.22) !important;
+  }
+  .table-colorful tfoot td {
+    border-top: 3px solid #fbbf24;
+    background-color: rgba(254, 249, 195, 0.8);
+  }
+  /* photo thumbs inside tables never look squashed */
+  .table-colorful td img {
+    border-color: #fbbf24 !important;
   }
 
   /* ── photo upload tiles ───────────────────────────────────────── */
@@ -169,6 +224,24 @@
 .font-urdu {
   font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', serif;
 }
+/* ═════ GLOBAL Urdu anti-clip: every Urdu string gets head-room ═════
+   Nastaliq letters (ں ٹ ے ژ …) rise above the em-box; without extra
+   line-height + top padding they get their tops chopped everywhere
+   (chips, buttons, table cells, labels, headings). Fixed globally: */
+html[lang='ur'] .font-urdu,
+html[lang='ur'] .u-text,
+html[lang='ur'] .u-head,
+html[lang='ur'] .u-head-sm {
+  padding-top: 0.45em;
+  padding-bottom: 0.12em;
+  line-height: 2.1;
+  overflow: visible;
+}
+html[lang='ur'] h1,
+html[lang='ur'] h2,
+html[lang='ur'] h3 {
+  overflow: visible;
+}
 /* Nastaliq letters (ں ٹ ے…) clip at the top without extra top padding */
 html[lang='ur'] .u-text,
 html[lang='ur'] .u-head,
@@ -184,6 +257,19 @@ html[lang='ur'] .u-head {
 }
 html[lang='ur'] .u-head-sm {
   line-height: 2.3;
+}
+/* never truncate Urdu inside headings — let them wrap instead */
+html[lang='ur'] h1,
+html[lang='ur'] h3,
+html[lang='ur'] .u-head {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+/* labels & small Urdu text need a taller box too */
+html[lang='ur'] label span,
+html[lang='ur'] .text-xs.font-urdu,
+html[lang='ur'] .text-sm.font-urdu {
+  line-height: 2;
 }
 /* English mode keeps compact metrics */
 html[lang='en'] .u-text,
@@ -265,7 +351,30 @@ html[lang='en'] .u-head-sm {
   }
 }
 
-/* ═════ Custom scrollbar (gradient thumb) ═══════════════════════ */
+/* ═════ PAGE scrollbar — SOLID gradient, always visible ═════════ */
+html {
+  scrollbar-width: auto;
+  scrollbar-color: #0d9488 #d1fae5;
+}
+html::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+html::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 50%, #fef9c3 100%);
+  border-radius: 999px;
+}
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2dd4bf 0%, #0d9488 30%, #047857 60%, #ca8a04 100%);
+  border-radius: 999px;
+  border: 3px solid #ecfdf5;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+html::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5eead4 0%, #14b8a6 30%, #059669 60%, #a16207 100%);
+}
+
+/* ═════ Inner scroll areas (slim gradient thumb) ═══════════════ */
 .scroll-slim {
   scrollbar-width: thin;
   scrollbar-color: #0d9488 #ecfdf5;
@@ -325,9 +434,11 @@ aside nav.scroll-slim::-webkit-scrollbar-thumb {
 .modal-panel {
   pointer-events: auto;
   width: 100%;
-  max-height: 90vh;
+  max-height: 92vh;
   overflow-y: auto;
+  overscroll-behavior: contain; /* page behind never scrolls by accident */
   background: #ffffff;
+  border: 2px solid #99f6e4;
   border-radius: 1rem 1rem 0 0;
   box-shadow: 0 40px 90px -20px rgba(6, 78, 59, 0.5);
   animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -337,6 +448,22 @@ aside nav.scroll-slim::-webkit-scrollbar-thumb {
     border-radius: 1rem;
     animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+}
+/* tall content → its own smooth gradient scrollbar inside the panel */
+.modal-panel::-webkit-scrollbar {
+  width: 10px;
+}
+.modal-panel::-webkit-scrollbar-track {
+  background: #f0fdfa;
+}
+.modal-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2dd4bf 0%, #0d9488 40%, #059669 70%, #ca8a04 100%);
+  border-radius: 999px;
+  border: 2px solid #f0fdfa;
+}
+.modal-panel {
+  scrollbar-width: thin;
+  scrollbar-color: #0d9488 #f0fdfa;
 }
 
 /* ═════ Animations ══════════════════════════════════════════════ */
